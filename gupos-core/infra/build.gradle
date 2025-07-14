@@ -1,0 +1,12 @@
+bootJar.enabled = false
+
+jar.enabled = true
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation("org.hibernate.orm:hibernate-spatial:6.4.2.Final") // Hibernate 6.4 대응
+    implementation("org.locationtech.jts:jts-core:1.19.0") // JTS (Geometry 처리)
+
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation project(':gupos-core:domain')
+}
