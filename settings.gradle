@@ -1,0 +1,4 @@
+rootProject.name = 'gupos-module'
+include 'gupos-api'
+include 'gupos-api'
+
