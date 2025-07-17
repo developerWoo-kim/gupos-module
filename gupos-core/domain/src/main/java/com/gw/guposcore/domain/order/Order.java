@@ -11,12 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Entity
+@Entity(name = "tb_od_order")
 @NoArgsConstructor
 public class Order {
     @Id
     @Column(name = "order_id")
-    private String orderId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long orderId;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -31,10 +32,22 @@ public class Order {
     private LocalDateTime orderDateTime;
 
     @Builder
-    public Order(String orderId, OrderStatus orderStatus, OrderType orderType, LocalDateTime orderDateTime) {
-        this.orderId = orderId;
+    public Order(OrderStatus orderStatus, OrderType orderType, LocalDateTime orderDateTime) {
         this.orderStatus = orderStatus;
         this.orderType = orderType;
         this.orderDateTime = orderDateTime;
+    }
+
+    public static Order create(OrderStatus orderStatus, OrderType orderType) {
+        return builder()
+                .orderStatus(orderStatus)
+                .orderType(orderType)
+                .orderDateTime(LocalDateTime.now())
+                .build();
+    }
+
+    public void addOrderProduct(OrderProduct orderProduct) {
+        OrderProduct buildOrderProduct = orderProduct.toBuilder().order(this).build();
+        orderProductList.add(buildOrderProduct);
     }
 }
