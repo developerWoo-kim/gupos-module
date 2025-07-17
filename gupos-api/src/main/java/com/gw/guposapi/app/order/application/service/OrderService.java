@@ -6,12 +6,14 @@ import com.gw.guposapi.app.order.application.out.OrderPort;
 import com.gw.guposcore.domain.order.Order;
 import com.gw.guposcore.domain.order.OrderProduct;
 import com.gw.guposcore.domain.product.Product;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import static com.gw.guposapi.app.order.adapter.web.request.CreateOrderRequest.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OrderService implements OrderUseCase {
     private final OrderPort orderPort;
@@ -29,6 +31,6 @@ public class OrderService implements OrderUseCase {
         }
 
 
-        return null;
+        return orderPort.save(createdOrder);
     }
 }
