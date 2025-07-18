@@ -7,6 +7,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -16,6 +18,11 @@ public class ProductService implements ProductUseCase {
     @Override
     public Product createProduct(Product product) {
         return productPort.save(product);
+    }
+
+    @Override
+    public List<Product> getProductList() {
+        return productPort.findList();
     }
 
     @Override

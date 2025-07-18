@@ -5,7 +5,8 @@ import com.gw.guposapi.app.order.application.out.OrderPort;
 import com.gw.guposcore.domain.order.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -15,5 +16,10 @@ public class OrderPersistence implements OrderPort {
     @Override
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+
+    @Override
+    public List<Order> findList() {
+        return orderRepository.findList();
     }
 }

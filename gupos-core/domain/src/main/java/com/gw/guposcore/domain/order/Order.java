@@ -38,9 +38,9 @@ public class Order {
         this.orderDateTime = orderDateTime;
     }
 
-    public static Order create(OrderStatus orderStatus, OrderType orderType) {
+    public static Order create(OrderType orderType) {
         return builder()
-                .orderStatus(orderStatus)
+                .orderStatus(OrderStatus.PROGRESS)
                 .orderType(orderType)
                 .orderDateTime(LocalDateTime.now())
                 .build();

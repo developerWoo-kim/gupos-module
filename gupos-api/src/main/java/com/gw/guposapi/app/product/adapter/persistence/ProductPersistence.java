@@ -6,6 +6,8 @@ import com.gw.guposcore.domain.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class ProductPersistence implements ProductPort {
@@ -19,5 +21,10 @@ public class ProductPersistence implements ProductPort {
     @Override
     public Product findById(Long productId) {
         return productRepository.findById(productId).orElse(null);
+    }
+
+    @Override
+    public List<Product> findList() {
+        return productRepository.findList();
     }
 }

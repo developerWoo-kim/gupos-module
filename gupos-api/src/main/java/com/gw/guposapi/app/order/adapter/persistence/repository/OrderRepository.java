@@ -4,5 +4,5 @@ import com.gw.guposcore.domain.order.Order;
 import com.gw.guposcore.domain.order.repository.OrderCoreRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface OrderRepository extends JpaRepository<Order, String>, OrderCoreRepository {
+public interface OrderRepository extends JpaRepository<Order, Long>, OrderCoreRepository {
 }

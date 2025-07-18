@@ -9,7 +9,7 @@ import java.util.List;
 
 @Data
 public class CreateOrderRequest {
-    private OrderStatus orderStatus;
+    private String storeId;
     private OrderType orderType;
     private List<CreateOrderProductRequest> orderProductList;
 
