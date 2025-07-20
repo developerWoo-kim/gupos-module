@@ -39,7 +39,6 @@ public class OrderServiceTest {
     @Test
     void orderTest() {
         CreateOrderRequest createOrderRequest = new CreateOrderRequest();
-        createOrderRequest.setOrderStatus(OrderStatus.PROGRESS);
         createOrderRequest.setOrderType(OrderType.DINE_IN);
 
 

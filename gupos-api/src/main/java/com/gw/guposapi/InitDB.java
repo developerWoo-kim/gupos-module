@@ -26,9 +26,11 @@ public class InitDB {
 
 
         public void createProduct() {
+            int price = 500;
             for(int i = 0; i < 30; i++) {
-                Product product1 = productUseCase.createProduct(Product.create("상품1", "상품설명", "상품상세설명", 1000, "N", null));
+                Product product1 = productUseCase.createProduct(Product.create("상품_" + i, "상품설명", "상품상세설명", price, "N", null));
                 productUseCase.createProduct(product1);
+                price += 500;
             }
 //            Product product1 = productUseCase.createProduct(Product.create("상품1", "상품설명", "상품상세설명", 1000, "N", null));
 //            productUseCase.createProduct(product1);

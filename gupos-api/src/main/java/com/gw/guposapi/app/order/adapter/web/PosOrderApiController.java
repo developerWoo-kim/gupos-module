@@ -19,7 +19,7 @@ import static com.gw.guposapi.app.order.adapter.web.response.OrderDto.createList
 public class PosOrderApiController {
     private final OrderUseCase orderUseCase;
 
-    @PostMapping("/api/v1/pos/order")
+    @PostMapping("/api/v1/pos/order/create")
     public Order order(@RequestBody CreateOrderRequest createOrderRequest) {
         return orderUseCase.createOrder(createOrderRequest);
     }

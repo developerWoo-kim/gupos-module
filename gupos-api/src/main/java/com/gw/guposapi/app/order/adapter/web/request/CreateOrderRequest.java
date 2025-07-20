@@ -18,5 +18,12 @@ public class CreateOrderRequest {
         private Long productId;
         private int orderProductPrice;
         private int quantity;
+        private List<CreateOrderProductOptionRequest> optionList;
+    }
+
+    @Data
+    public static class CreateOrderProductOptionRequest {
+        private Long optionId;
+        private int quantity;
     }
 }
