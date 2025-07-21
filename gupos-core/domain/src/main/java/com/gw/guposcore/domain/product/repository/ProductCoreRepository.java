@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProductCoreRepository {
     List<Product> findList();
+
+    List<Product> findProductWithOptionGroup();
 }

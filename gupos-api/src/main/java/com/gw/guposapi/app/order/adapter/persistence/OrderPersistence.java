@@ -22,4 +22,9 @@ public class OrderPersistence implements OrderPort {
     public List<Order> findList() {
         return orderRepository.findList();
     }
+
+    @Override
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId).orElse(null);
+    }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 public interface ProductUseCase {
     Product createProduct(Product product);
 
-    List<Product> getProductList();
     Product getProductById(Long productId);
+    List<Product> getProductList();
+    List<Product> getProductListWithOptions();
 }

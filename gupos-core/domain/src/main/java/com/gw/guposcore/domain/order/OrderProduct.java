@@ -1,10 +1,14 @@
 package com.gw.guposcore.domain.order;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gw.guposcore.domain.product.Product;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -28,7 +32,11 @@ public class OrderProduct {
     private int orderProductPrice;
     private int quantity;
 
-    @Builder(toBuilder = true)
+    @JsonIgnore
+    @OneToMany(mappedBy = "orderProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderProductOption> orderProductOptionList = new ArrayList<>();
+
+    @Builder()
     public OrderProduct(Order order, Product product, int orderProductPrice, int quantity) {
         this.order = order;
         this.product = product;
@@ -42,6 +50,15 @@ public class OrderProduct {
                 .orderProductPrice(orderProductPrice)
                 .quantity(quantity)
                 .build();
+    }
+
+    public void addOption(OrderProductOption orderProductOption) {
+        orderProductOption.withOrderProduct(this);
+        orderProductOptionList.add(orderProductOption);
+    }
+
+    public void withOrder(Order order) {
+        this.order = order;
     }
 
 }

@@ -1,9 +1,13 @@
 package com.gw.guposcore.domain.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Getter
@@ -20,6 +24,10 @@ public class Product {
     private int productPrice;
     private String stockAt;
     private Integer stockCount;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductOptionGroup> productOptionGroupList = new ArrayList<>();
 
 
     @Builder
@@ -42,4 +50,10 @@ public class Product {
                 .stockCount(stockCount)
                 .build();
     }
+
+    public void addProductOption(ProductOptionGroup productOptionGroup) {
+        productOptionGroup.withProduct(this);
+        productOptionGroupList.add(productOptionGroup);
+    }
+
 }

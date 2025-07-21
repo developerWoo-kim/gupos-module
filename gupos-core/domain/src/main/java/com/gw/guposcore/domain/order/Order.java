@@ -47,7 +47,15 @@ public class Order {
     }
 
     public void addOrderProduct(OrderProduct orderProduct) {
-        OrderProduct buildOrderProduct = orderProduct.toBuilder().order(this).build();
-        orderProductList.add(buildOrderProduct);
+        orderProduct.withOrder(this);
+        orderProductList.add(orderProduct);
+    }
+
+    public void complete() {
+        this.orderStatus = OrderStatus.COMPLETE;
+    }
+
+    public void cancel() {
+        this.orderStatus = OrderStatus.CANCEL;
     }
 }

@@ -8,4 +8,5 @@ public interface ProductPort {
     Product save(Product product);
     Product findById(Long productId);
     List<Product> findList();
+    List<Product> findProductListWithOptionGroup();
 }

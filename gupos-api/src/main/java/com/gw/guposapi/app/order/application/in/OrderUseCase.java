@@ -9,5 +9,9 @@ public interface OrderUseCase {
 
     Order createOrder(CreateOrderRequest createOrderRequest);
 
+    Order completeOrder(Long orderId);
+
+    Order cancelOrder(Long orderId);
+
     List<Order> getOrderList();
 }

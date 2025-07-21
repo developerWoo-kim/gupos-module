@@ -5,10 +5,7 @@ import com.gw.guposapi.app.order.adapter.web.response.OrderDto;
 import com.gw.guposapi.app.order.application.in.OrderUseCase;
 import com.gw.guposcore.domain.order.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,15 @@ public class PosOrderApiController {
     public List<OrderDto> getOrderList() {
         List<Order> orderList = orderUseCase.getOrderList();
         return createList(orderList);
+    }
+
+    @PutMapping("/api/v1/pos/order/complete/{orderId}")
+    public Order completeOrder(@PathVariable("orderId") Long orderId) {
+        return orderUseCase.completeOrder(orderId);
+    }
+
+    @PutMapping("/api/v1/pos/order/cancel/{orderId}")
+    public Order cancelOrder(@PathVariable("orderId") Long orderId) {
+        return orderUseCase.cancelOrder(orderId);
     }
 }
