@@ -5,11 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-import static com.gw.guposcore.domain.product.QProduct.product;
 import static com.gw.guposcore.domain.product.QProductOption.productOption;
-import static com.gw.guposcore.domain.product.QProductOptionGroup.productOptionGroup;
 
 
 @Repository
@@ -28,16 +24,4 @@ public class ProductOptionCoreRepositoryImpl implements ProductOptionCoreReposit
                 .fetchOne();
     }
 
-    @Override
-    public List<ProductOptionGroup> findOptionGroupListByProductId(Long productId) {
-        return queryFactory
-                .select(productOptionGroup)
-                .from(productOptionGroup)
-                .join(productOptionGroup.product, product).fetchJoin()
-                .join(productOptionGroup.productOptionList, productOption).fetchJoin()
-                .where(
-                        productOptionGroup.product.productId.eq(productId)
-                )
-                .fetch();
-    }
 }
