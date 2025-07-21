@@ -69,6 +69,14 @@ public class OrderService implements OrderUseCase {
 
     @Override
     public List<Order> getOrderList() {
-        return orderPort.findList();
+        List<Order> list = orderPort.findList();
+        for (Order order : list) {
+            for (OrderProduct orderProduct : order.getOrderProductList()) {
+                for (OrderProductOption orderProductOption : orderProduct.getOrderProductOptionList()) {
+                    Long optionId = orderProductOption.getOptionId();
+                }
+            }
+        }
+        return list;
     }
 }
