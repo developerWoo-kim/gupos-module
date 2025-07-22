@@ -19,6 +19,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String productNm;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private ProductCategory category;
+
     private String simpleDescription;
     private String description;
     private int productPrice;
@@ -54,6 +59,10 @@ public class Product {
     public void addProductOption(ProductOptionGroup productOptionGroup) {
         productOptionGroup.withProduct(this);
         productOptionGroupList.add(productOptionGroup);
+    }
+
+    public void withCategory(ProductCategory productCategory) {
+        this.category = productCategory;
     }
 
 }
