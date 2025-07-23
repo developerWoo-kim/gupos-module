@@ -1,5 +1,6 @@
 package com.gw.guposapi.app.product.application.service;
 
+import com.gw.guposapi.app.product.adapter.web.request.UpdateCategoryProductRequest;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
 import com.gw.guposapi.app.product.application.out.ProductCategoryPort;
 import com.gw.guposcore.domain.product.Product;
@@ -22,6 +23,13 @@ public class ProductCategoryService implements ProductCategoryUseCase {
     public ProductCategory createCategory(String categoryNm) {
         int maxSortOrder = productCategoryPort.findMaxSortOrder();
         return productCategoryPort.save(ProductCategory.create(categoryNm, maxSortOrder + 1));
+    }
+
+    @Override
+    public ProductCategory updateCategory(UpdateCategoryProductRequest request) {
+        ProductCategory foundCategory = productCategoryPort.findById(request.getCategoryId());
+        foundCategory.updateCategoryNm(request.getCategoryNm());
+        return foundCategory;
     }
 
     @Override

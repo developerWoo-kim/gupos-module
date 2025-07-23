@@ -28,4 +28,9 @@ public class ProductCategoryPersistence implements ProductCategoryPort {
     public int findMaxSortOrder() {
         return productCategoryRepository.findMaxSortOrder();
     }
+
+    @Override
+    public ProductCategory findById(Long categoryId) {
+        return productCategoryRepository.findById(categoryId).orElse(null);
+    }
 }

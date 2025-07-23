@@ -37,4 +37,8 @@ public class ProductCategory {
                 .sortOrder(sortOrder)
                 .build();
     }
+
+    public void updateCategoryNm(String categoryNm) {
+        this.categoryNm = categoryNm;
+    }
 }
