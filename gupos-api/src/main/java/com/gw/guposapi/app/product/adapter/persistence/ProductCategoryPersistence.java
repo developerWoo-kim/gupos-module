@@ -20,6 +20,11 @@ public class ProductCategoryPersistence implements ProductCategoryPort {
     }
 
     @Override
+    public void delete(Long categoryId) {
+        productCategoryRepository.findById(categoryId);
+    }
+
+    @Override
     public List<ProductCategory> findCategoryListWithProducts() {
         return productCategoryRepository.findCategoryListWithProducts();
     }

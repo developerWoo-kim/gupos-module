@@ -1,6 +1,7 @@
 package com.gw.guposapi.app.product.adapter.web;
 
 import com.gw.guposapi.app.product.adapter.web.request.UpdateCategoryProductRequest;
+import com.gw.guposapi.app.product.adapter.web.request.UpdateCategorySortOrderRequest;
 import com.gw.guposapi.app.product.adapter.web.response.ProductCategoryDto;
 import com.gw.guposapi.app.product.adapter.web.response.ProductDto;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
@@ -31,5 +32,15 @@ public class ProductCategoryApiController {
     @PutMapping("/api/v1/pos/categories/category-name")
     public void updateCategoryName(@RequestBody UpdateCategoryProductRequest request) {
         productCategoryUseCase.updateCategory(request);
+    }
+
+    @PutMapping("/api/v1/pos/categories/sort-order")
+    public void updateCategorySortOrder(@RequestBody UpdateCategorySortOrderRequest request) {
+        productCategoryUseCase.updateSortOrder(request);
+    }
+
+    @DeleteMapping("/api/v1/pos/categories/{categoryId}")
+    public void updateCategoryName(@PathVariable("categoryId") Long categoryId) {
+        productCategoryUseCase.deleteCategory(categoryId);
     }
 }

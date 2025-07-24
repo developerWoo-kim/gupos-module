@@ -7,9 +7,10 @@ import java.util.List;
 public interface ProductCategoryPort {
     ProductCategory save(ProductCategory productCategory);
 
+    void delete(Long categoryId);
+
     int findMaxSortOrder();
     ProductCategory findById(Long categoryId);
     List<ProductCategory> findCategoryListWithProducts();
-
 
 }

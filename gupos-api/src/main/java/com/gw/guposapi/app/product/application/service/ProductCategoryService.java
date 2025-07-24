@@ -1,6 +1,7 @@
 package com.gw.guposapi.app.product.application.service;
 
 import com.gw.guposapi.app.product.adapter.web.request.UpdateCategoryProductRequest;
+import com.gw.guposapi.app.product.adapter.web.request.UpdateCategorySortOrderRequest;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
 import com.gw.guposapi.app.product.application.out.ProductCategoryPort;
 import com.gw.guposcore.domain.product.Product;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.gw.guposapi.app.product.adapter.web.request.UpdateCategorySortOrderRequest.*;
 
 @Service
 @Transactional
@@ -30,6 +33,19 @@ public class ProductCategoryService implements ProductCategoryUseCase {
         ProductCategory foundCategory = productCategoryPort.findById(request.getCategoryId());
         foundCategory.updateCategoryNm(request.getCategoryNm());
         return foundCategory;
+    }
+
+    @Override
+    public void updateSortOrder(UpdateCategorySortOrderRequest request) {
+        for (CategorySortOrderRequest categorySortOrder : request.getCategorySortOrderList()) {
+            ProductCategory foundCategory = productCategoryPort.findById(categorySortOrder.getCategoryId());
+            foundCategory.updateSortOrder(categorySortOrder.getSortOrder());
+        }
+    }
+
+    @Override
+    public void deleteCategory(Long categoryId) {
+        productCategoryPort.delete(categoryId);
     }
 
     @Override

@@ -41,4 +41,8 @@ public class ProductCategory {
     public void updateCategoryNm(String categoryNm) {
         this.categoryNm = categoryNm;
     }
+
+    public void updateSortOrder(int sortOrder) {
+        this.sortOrder = sortOrder;
+    }
 }
