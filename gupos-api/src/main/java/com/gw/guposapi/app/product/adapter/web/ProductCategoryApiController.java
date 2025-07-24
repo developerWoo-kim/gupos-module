@@ -23,8 +23,9 @@ public class ProductCategoryApiController {
     }
 
     @PostMapping("/api/v1/pos/categories/{categoryNm}")
-    public void createCategory(@PathVariable("categoryNm") String categoryNm) {
-        productCategoryUseCase.createCategory(categoryNm);
+    public ProductCategoryDto createCategory(@PathVariable("categoryNm") String categoryNm) {
+        ProductCategory category = productCategoryUseCase.createCategory(categoryNm);
+        return new ProductCategoryDto(category);
     }
 
     @PutMapping("/api/v1/pos/categories/category-name")
