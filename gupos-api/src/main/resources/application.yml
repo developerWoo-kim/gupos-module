@@ -71,3 +71,13 @@ spring:
 
 logging.level:
   org.hibernate.SQL: trace # ??? ??
+
+
+springdoc:
+  group-configs:
+    - group: product
+      paths-to-match: /api/v1/pos/product/**
+      display-name: 상품 도메인
+    - group: order
+      paths-to-match: /api/v1/pos/order/**
+      display-name: 주문 도메인
