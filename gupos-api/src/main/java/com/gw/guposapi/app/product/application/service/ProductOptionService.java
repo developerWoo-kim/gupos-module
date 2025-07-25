@@ -11,11 +11,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProductOptionService implements ProductOptionUseCase {
+class ProductOptionService implements ProductOptionUseCase {
     private final ProductOptionPort productOptionPort;
 
     @Override
     public ProductOption getOptionById(Long optionId) {
         return productOptionPort.findOptionById(optionId);
+    }
+
+    @Override
+    public List<ProductOptionGroup> getOptionGroupList() {
+        return productOptionPort.findOptionGroupList();
     }
 }

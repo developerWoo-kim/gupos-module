@@ -18,10 +18,6 @@ public class ProductOptionGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productOptionGroupId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id")
-    private Product product;
-
     @JsonIgnore
     @OneToMany(mappedBy = "productOptionGroup", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProductOption> productOptionList = new ArrayList<>();
@@ -31,9 +27,8 @@ public class ProductOptionGroup {
     private int maxSelectionCount;
     private int sortOrder;
 
-    @Builder()
-    public ProductOptionGroup(Product product, String productOptionGroupNm, String requiredAt, int maxSelectionCount, int sortOrder) {
-        this.product = product;
+    @Builder
+    public ProductOptionGroup(String productOptionGroupNm, String requiredAt, int maxSelectionCount, int sortOrder) {
         this.productOptionGroupNm = productOptionGroupNm;
         this.requiredAt = requiredAt;
         this.maxSelectionCount = maxSelectionCount;
@@ -52,10 +47,6 @@ public class ProductOptionGroup {
     public void addProductOptionDetail(ProductOption productOption) {
         productOption.withProductOptionGroup(this);
         productOptionList.add(productOption);
-    }
-
-    public void withProduct(Product product) {
-        this.product = product;
     }
 
 }

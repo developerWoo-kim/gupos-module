@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ProductOptionUseCase {
     ProductOption getOptionById(Long optionId);
+
+    List<ProductOptionGroup> getOptionGroupList();
 }

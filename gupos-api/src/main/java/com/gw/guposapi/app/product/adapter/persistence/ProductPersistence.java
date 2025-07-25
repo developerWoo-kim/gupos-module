@@ -29,7 +29,7 @@ public class ProductPersistence implements ProductPort {
     }
 
     @Override
-    public List<Product> findProductListWithOptionGroup() {
-        return productRepository.findProductWithOptionGroup();
+    public List<Product> findProductListWithOptions() {
+        return productRepository.findProductWithOptions();
     }
 }

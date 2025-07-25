@@ -1,12 +1,11 @@
 package com.gw.guposapi;
 
 import com.gw.guposapi.app.product.adapter.persistence.repository.ProductCategoryRepository;
+import com.gw.guposapi.app.product.adapter.persistence.repository.ProductOptionGroupRepository;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
 import com.gw.guposapi.app.product.application.in.ProductUseCase;
-import com.gw.guposcore.domain.product.Product;
-import com.gw.guposcore.domain.product.ProductCategory;
-import com.gw.guposcore.domain.product.ProductOptionGroup;
-import com.gw.guposcore.domain.product.ProductOption;
+import com.gw.guposapi.app.product.application.out.ProductOptionPort;
+import com.gw.guposcore.domain.product.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +17,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InitDB {
     private final InitService initService;
+    private final ProductOptionGroupRepository productOptionGroupRepository;
 
     @PostConstruct
     public void init() {
+        initService.createProductOption();
         initService.createProductCategory();
         initService.createProduct();
     }
@@ -32,6 +33,7 @@ public class InitDB {
         private final ProductUseCase productUseCase;
         private final ProductCategoryUseCase productCategoryUseCase;
         private final ProductCategoryRepository productCategoryRepository;
+        private final ProductOptionGroupRepository productOptionGroupRepository;
 
 
         public void createProduct() {
@@ -40,21 +42,13 @@ public class InitDB {
             for(int i = 0; i < 30; i++) {
                 Product createdProduct = Product.create("상품_" + i, "상품설명", "상품상세설명", price, "N", null);
 
-                ProductOptionGroup createdOption = ProductOptionGroup.create("온도_" + i, "N", 1, 1);
-                createdOption.addProductOptionDetail(ProductOption.create("ICE", 500, 1));
-                createdOption.addProductOptionDetail(ProductOption.create("HOT", 0, 2));
-                createdProduct.addProductOption(createdOption);
-
-                ProductOptionGroup createdOption2 = ProductOptionGroup.create("사이즈_" + i, "N", 1, 1);
-                createdOption2.addProductOptionDetail(ProductOption.create("S", 0, 1));
-                createdOption2.addProductOptionDetail(ProductOption.create("M", 500, 2));
-                createdOption2.addProductOptionDetail(ProductOption.create("L", 1000, 3));
-                createdProduct.addProductOption(createdOption2);
-
-
                 if(i < 15) {
                     createdProduct.withCategory(all.get(0));
                 } else {
+                    ProductOptionGroup optionGroup = productOptionGroupRepository.findById(1L).orElse(null);
+                    ProductOptionRel productOptionRel = ProductOptionRel.create(createdProduct, optionGroup);
+                    createdProduct.addProductOption(productOptionRel);
+
                     createdProduct.withCategory(all.get(1));
                 }
 
@@ -67,6 +61,21 @@ public class InitDB {
             productCategoryUseCase.createCategory("즐겨찾기");
             productCategoryUseCase.createCategory("음료");
             productCategoryUseCase.createCategory("음식");
+        }
+
+        public void createProductOption() {
+            ProductOptionGroup createdOption = ProductOptionGroup.create("온도", "N", 1, 1);
+            createdOption.addProductOptionDetail(ProductOption.create("ICE", 500, 1));
+            createdOption.addProductOptionDetail(ProductOption.create("HOT", 0, 2));
+
+            productOptionGroupRepository.save(createdOption);
+
+            ProductOptionGroup createdOption2 = ProductOptionGroup.create("사이즈", "N", 1, 2);
+            createdOption2.addProductOptionDetail(ProductOption.create("S", 0, 1));
+            createdOption2.addProductOptionDetail(ProductOption.create("M", 500, 2));
+            createdOption2.addProductOptionDetail(ProductOption.create("L", 1000, 3));
+
+            productOptionGroupRepository.save(createdOption2);
         }
     }
 }

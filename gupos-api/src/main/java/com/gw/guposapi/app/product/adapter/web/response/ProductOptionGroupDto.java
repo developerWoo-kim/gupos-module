@@ -4,6 +4,7 @@ import com.gw.guposcore.domain.product.ProductOption;
 import com.gw.guposcore.domain.product.ProductOptionGroup;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.Hibernate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,10 @@ public class ProductOptionGroupDto {
         this.maxSelectionCount = productOptionGroup.getMaxSelectionCount();
         this.sortOrder = productOptionGroup.getSortOrder();
 
-        for (ProductOption productOption : productOptionGroup.getProductOptionList()) {
-            this.optionList.add(new ProductOptionDto(productOption));
+        if (Hibernate.isInitialized(productOptionGroup.getProductOptionList()) && productOptionGroup.getProductOptionList() != null) {
+            for (ProductOption productOption : productOptionGroup.getProductOptionList()) {
+                this.optionList.add(new ProductOptionDto(productOption));
+            }
         }
     }
 

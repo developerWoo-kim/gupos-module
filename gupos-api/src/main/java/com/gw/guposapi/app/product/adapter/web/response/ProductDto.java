@@ -2,7 +2,9 @@ package com.gw.guposapi.app.product.adapter.web.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.gw.guposcore.domain.product.Product;
+import com.gw.guposcore.domain.product.ProductOption;
 import com.gw.guposcore.domain.product.ProductOptionGroup;
+import com.gw.guposcore.domain.product.ProductOptionRel;
 import lombok.Data;
 import org.hibernate.Hibernate;
 
@@ -19,8 +21,7 @@ public class ProductDto {
     private String stockAt;
     private Integer stockCount;
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<ProductOptionGroupDto> optionGroupList;
+    private List<ProductOptionGroupDto> optionGroupList = new ArrayList<>();
 
     public static List<ProductDto> createList(List<Product> products) {
         List<ProductDto> list = new ArrayList<>();
@@ -39,10 +40,9 @@ public class ProductDto {
         this.stockAt = product.getStockAt();
         this.stockCount = product.getStockCount();
 
-        if(Hibernate.isInitialized(product.getProductOptionGroupList()) && product.getProductOptionGroupList() != null) {
-            this.optionGroupList = new ArrayList<>();
-            for (ProductOptionGroup productOptionGroup : product.getProductOptionGroupList()) {
-                optionGroupList.add(new ProductOptionGroupDto(productOptionGroup));
+        if(Hibernate.isInitialized(product.getProductOptionRelList()) && product.getProductOptionRelList() != null) {
+            for (ProductOptionRel productOptionRel : product.getProductOptionRelList()) {
+                optionGroupList.add(new ProductOptionGroupDto(productOptionRel.getProductOptionGroup()));
             }
         }
     }

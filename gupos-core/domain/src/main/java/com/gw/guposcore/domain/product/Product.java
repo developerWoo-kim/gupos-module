@@ -32,8 +32,7 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductOptionGroup> productOptionGroupList = new ArrayList<>();
-
+    private List<ProductOptionRel> productOptionRelList = new ArrayList<>();
 
     @Builder
     public Product(String productNm, String simpleDescription, String description, int productPrice, String stockAt, Integer stockCount) {
@@ -56,13 +55,11 @@ public class Product {
                 .build();
     }
 
-    public void addProductOption(ProductOptionGroup productOptionGroup) {
-        productOptionGroup.withProduct(this);
-        productOptionGroupList.add(productOptionGroup);
-    }
-
     public void withCategory(ProductCategory productCategory) {
         this.category = productCategory;
     }
 
+    public void addProductOption(ProductOptionRel productOptionRel) {
+        productOptionRelList.add(productOptionRel);
+    }
 }

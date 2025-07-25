@@ -4,7 +4,7 @@ import com.gw.guposapi.app.product.application.in.ProductUseCase;
 import com.gw.guposapi.app.product.application.out.ProductPort;
 import com.gw.guposcore.domain.product.Product;
 import com.gw.guposcore.domain.product.ProductOption;
-import com.gw.guposcore.domain.product.ProductOptionGroup;
+import com.gw.guposcore.domain.product.ProductOptionRel;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProductService implements ProductUseCase {
+class ProductService implements ProductUseCase {
     private final ProductPort productPort;
 
     @Override
@@ -29,10 +29,10 @@ public class ProductService implements ProductUseCase {
 
     @Override
     public List<Product> getProductListWithOptions() {
-        List<Product> foundProduct = productPort.findProductListWithOptionGroup();
+        List<Product> foundProduct = productPort.findProductListWithOptions();
         for (Product product : foundProduct) {
-            for (ProductOptionGroup optionGroup : product.getProductOptionGroupList()) {
-                for (ProductOption productOption : optionGroup.getProductOptionList()) {
+            for (ProductOptionRel optionRel : product.getProductOptionRelList()) {
+                for (ProductOption productOption : optionRel.getProductOptionGroup().getProductOptionList()) {
                     Long productOptionId = productOption.getProductOptionId();
                 }
             }

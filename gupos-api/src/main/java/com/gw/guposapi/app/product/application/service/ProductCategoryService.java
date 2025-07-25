@@ -4,10 +4,7 @@ import com.gw.guposapi.app.product.adapter.web.request.UpdateCategoryProductRequ
 import com.gw.guposapi.app.product.adapter.web.request.UpdateCategorySortOrderRequest;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
 import com.gw.guposapi.app.product.application.out.ProductCategoryPort;
-import com.gw.guposcore.domain.product.Product;
-import com.gw.guposcore.domain.product.ProductCategory;
-import com.gw.guposcore.domain.product.ProductOption;
-import com.gw.guposcore.domain.product.ProductOptionGroup;
+import com.gw.guposcore.domain.product.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +16,7 @@ import static com.gw.guposapi.app.product.adapter.web.request.UpdateCategorySort
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ProductCategoryService implements ProductCategoryUseCase {
+class ProductCategoryService implements ProductCategoryUseCase {
     private final ProductCategoryPort productCategoryPort;
 
     @Override
@@ -53,11 +50,12 @@ public class ProductCategoryService implements ProductCategoryUseCase {
         List<ProductCategory> categoryList = productCategoryPort.findCategoryListWithProducts();
         for (ProductCategory category : categoryList) {
             for (Product product : category.getProductList()) {
-                for (ProductOptionGroup optionGroup : product.getProductOptionGroupList()) {
-                    for (ProductOption productOption : optionGroup.getProductOptionList()) {
-                        Long productOptionId = productOption.getProductOptionId();
+                for (ProductOptionRel productOptionRel : product.getProductOptionRelList()) {
+                    for (ProductOption option : productOptionRel.getProductOptionGroup().getProductOptionList()) {
+                        Long productOptionId = option.getProductOptionId();
                     }
-                }
+                };
+
             }
         }
         return categoryList;

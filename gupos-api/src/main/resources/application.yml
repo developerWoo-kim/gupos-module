@@ -21,14 +21,14 @@ spring:
     url: jdbc:h2:tcp://localhost/~/h2DB/gu-pos
     #    url: https://1ab2-116-36-82-239.ngrok-free.app/h2BD/adruck-admin
     username: root
-    password: '0000'
+    password: ''
   jpa:
     hibernate:
       ddl-auto: create
 
     properties:
       hibernate:
-        show_sql: true
+#        show_sql: true
         format_sql: true
         default_batch_fetch_size: 1000
 

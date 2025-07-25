@@ -17,29 +17,29 @@ import java.util.List;
 public class ProductCategoryApiController {
     private final ProductCategoryUseCase productCategoryUseCase;
 
-    @GetMapping("/api/v1/pos/categories/products/list")
+    @GetMapping("/api/v1/pos/product/categories/list")
     public List<ProductCategoryDto> getCategoryList() {
         List<ProductCategory> categoryList = productCategoryUseCase.getCategoryListWithProducts();
         return ProductCategoryDto.createList(categoryList);
     }
 
-    @PostMapping("/api/v1/pos/categories/{categoryNm}")
+    @PostMapping("/api/v1/pos/product/categories/{categoryNm}")
     public ProductCategoryDto createCategory(@PathVariable("categoryNm") String categoryNm) {
         ProductCategory category = productCategoryUseCase.createCategory(categoryNm);
         return new ProductCategoryDto(category);
     }
 
-    @PutMapping("/api/v1/pos/categories/category-name")
+    @PutMapping("/api/v1/pos/product/categories/category-name")
     public void updateCategoryName(@RequestBody UpdateCategoryProductRequest request) {
         productCategoryUseCase.updateCategory(request);
     }
 
-    @PutMapping("/api/v1/pos/categories/sort-order")
+    @PutMapping("/api/v1/pos/product/categories/sort-order")
     public void updateCategorySortOrder(@RequestBody UpdateCategorySortOrderRequest request) {
         productCategoryUseCase.updateSortOrder(request);
     }
 
-    @DeleteMapping("/api/v1/pos/categories/{categoryId}")
+    @DeleteMapping("/api/v1/pos/product/categories/{categoryId}")
     public void updateCategoryName(@PathVariable("categoryId") Long categoryId) {
         productCategoryUseCase.deleteCategory(categoryId);
     }
