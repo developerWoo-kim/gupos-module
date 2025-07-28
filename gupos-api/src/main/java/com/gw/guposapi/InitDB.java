@@ -4,7 +4,6 @@ import com.gw.guposapi.app.product.adapter.persistence.repository.ProductCategor
 import com.gw.guposapi.app.product.adapter.persistence.repository.ProductOptionGroupRepository;
 import com.gw.guposapi.app.product.application.in.ProductCategoryUseCase;
 import com.gw.guposapi.app.product.application.in.ProductUseCase;
-import com.gw.guposapi.app.product.application.out.ProductOptionPort;
 import com.gw.guposcore.domain.product.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -65,15 +64,15 @@ public class InitDB {
 
         public void createProductOption() {
             ProductOptionGroup createdOption = ProductOptionGroup.create("온도", "N", 1, 1);
-            createdOption.addProductOptionDetail(ProductOption.create("ICE", 500, 1));
-            createdOption.addProductOptionDetail(ProductOption.create("HOT", 0, 2));
+            createdOption.addProductOption(ProductOption.create("ICE", 500, 1));
+            createdOption.addProductOption(ProductOption.create("HOT", 0, 2));
 
             productOptionGroupRepository.save(createdOption);
 
             ProductOptionGroup createdOption2 = ProductOptionGroup.create("사이즈", "N", 1, 2);
-            createdOption2.addProductOptionDetail(ProductOption.create("S", 0, 1));
-            createdOption2.addProductOptionDetail(ProductOption.create("M", 500, 2));
-            createdOption2.addProductOptionDetail(ProductOption.create("L", 1000, 3));
+            createdOption2.addProductOption(ProductOption.create("S", 0, 1));
+            createdOption2.addProductOption(ProductOption.create("M", 500, 2));
+            createdOption2.addProductOption(ProductOption.create("L", 1000, 3));
 
             productOptionGroupRepository.save(createdOption2);
         }

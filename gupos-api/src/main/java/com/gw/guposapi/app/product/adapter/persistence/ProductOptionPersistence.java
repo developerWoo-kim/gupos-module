@@ -17,7 +17,7 @@ public class ProductOptionPersistence implements ProductOptionPort {
     private final ProductOptionGroupRepository productOptionGroupRepository;
 
     @Override
-    public ProductOptionGroup save(ProductOptionGroup productOptionGroup) {
+    public ProductOptionGroup saveOptionGroup(ProductOptionGroup productOptionGroup) {
         return productOptionGroupRepository.save(productOptionGroup);
     }
 
@@ -29,5 +29,10 @@ public class ProductOptionPersistence implements ProductOptionPort {
     @Override
     public ProductOption findOptionById(Long optionId) {
         return productOptionRepository.findOptionById(optionId);
+    }
+
+    @Override
+    public int findOptionGroupMaxSortOrder() {
+        return productOptionGroupRepository.findMaxSortOrder();
     }
 }

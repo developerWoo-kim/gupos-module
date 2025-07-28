@@ -44,7 +44,7 @@ public class ProductOptionGroup {
                 .build();
     }
 
-    public void addProductOptionDetail(ProductOption productOption) {
+    public void addProductOption(ProductOption productOption) {
         productOption.withProductOptionGroup(this);
         productOptionList.add(productOption);
     }

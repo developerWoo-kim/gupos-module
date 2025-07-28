@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.gw.guposcore.domain.product.QProductOption.productOption;
 import static com.gw.guposcore.domain.product.QProductOptionGroup.productOptionGroup;
@@ -21,5 +22,14 @@ public class ProductOptionGroupCoreRepositoryImpl implements ProductOptionGroupC
                 .leftJoin(productOptionGroup.productOptionList, productOption).fetchJoin()
                 .orderBy(productOptionGroup.sortOrder.asc())
                 .fetch();
+    }
+
+    @Override
+    public int findMaxSortOrder() {
+        return Optional.ofNullable(queryFactory
+                .select(productOptionGroup.sortOrder.max())
+                .from(productOptionGroup)
+                .fetchOne()
+        ).orElse(0);
     }
 }

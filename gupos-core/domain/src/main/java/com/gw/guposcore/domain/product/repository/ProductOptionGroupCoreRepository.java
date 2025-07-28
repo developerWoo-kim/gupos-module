@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ProductOptionGroupCoreRepository {
     List<ProductOptionGroup> findOptionGroupList();
+
+    int findMaxSortOrder();
 }
