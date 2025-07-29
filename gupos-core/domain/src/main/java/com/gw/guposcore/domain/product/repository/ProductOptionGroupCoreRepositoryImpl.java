@@ -15,6 +15,17 @@ public class ProductOptionGroupCoreRepositoryImpl implements ProductOptionGroupC
     private final JPAQueryFactory queryFactory;
 
     @Override
+    public ProductOptionGroup findOptionGroupById(Long optionGroupId) {
+        return queryFactory
+                .select(productOptionGroup)
+                .from(productOptionGroup)
+                .leftJoin(productOptionGroup.productOptionList, productOption).fetchJoin()
+                .where(productOptionGroup.productOptionGroupId.eq(optionGroupId))
+                .orderBy(productOption.sortOrder.asc())
+                .fetchOne();
+    }
+
+    @Override
     public List<ProductOptionGroup> findOptionGroupList() {
         return queryFactory
                 .select(productOptionGroup)

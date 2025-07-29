@@ -51,7 +51,7 @@ public class Product {
                 .description(description)
                 .productPrice(productPrice)
                 .stockAt(stockAt)
-                .stockCount(stockCount)
+                .stockCount(stockAt.equals("Y") ? stockCount : null)
                 .build();
     }
 

@@ -1,10 +1,11 @@
 package com.gw.guposapi.app.product.application.service;
 
+import com.gw.guposapi.app.product.adapter.web.request.CreateProductRequest;
 import com.gw.guposapi.app.product.application.in.ProductUseCase;
+import com.gw.guposapi.app.product.application.out.ProductCategoryPort;
+import com.gw.guposapi.app.product.application.out.ProductOptionPort;
 import com.gw.guposapi.app.product.application.out.ProductPort;
-import com.gw.guposcore.domain.product.Product;
-import com.gw.guposcore.domain.product.ProductOption;
-import com.gw.guposcore.domain.product.ProductOptionRel;
+import com.gw.guposcore.domain.product.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,30 @@ import java.util.List;
 @RequiredArgsConstructor
 class ProductService implements ProductUseCase {
     private final ProductPort productPort;
+    private final ProductOptionPort productOptionPort;
+    private final ProductCategoryPort productCategoryPort;
 
     @Override
     public Product createProduct(Product product) {
         return productPort.save(product);
+    }
+
+    @Override
+    public Product createProduct(CreateProductRequest request) {
+
+        Product buildProduct = Product.create(request.getProductNm(), "", "", request.getProductPrice(), request.getStockAt(), request.getStockCount());
+
+        ProductCategory foundCategory = productCategoryPort.findById(request.getCategoryId());
+        buildProduct.withCategory(foundCategory);
+
+        for (Long optionGroupId : request.getOptionGroupIds()) {
+            ProductOptionGroup foundOptionGroup = productOptionPort.findOptionGroupById(optionGroupId);
+            buildProduct.addProductOption(ProductOptionRel.create(buildProduct, foundOptionGroup));
+        }
+
+        Product savedProduct = productPort.save(buildProduct);
+
+        return savedProduct;
     }
 
     @Override

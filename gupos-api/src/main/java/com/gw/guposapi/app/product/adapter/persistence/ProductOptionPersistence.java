@@ -17,6 +17,11 @@ public class ProductOptionPersistence implements ProductOptionPort {
     private final ProductOptionGroupRepository productOptionGroupRepository;
 
     @Override
+    public ProductOptionGroup findOptionGroupById(Long optionGroupId) {
+        return productOptionGroupRepository.findOptionGroupById(optionGroupId);
+    }
+
+    @Override
     public ProductOptionGroup saveOptionGroup(ProductOptionGroup productOptionGroup) {
         return productOptionGroupRepository.save(productOptionGroup);
     }
