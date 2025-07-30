@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
   error:
     include-exception: false
     include-stacktrace: never # ?? ??? stacktrace ??? ??? ? ??
@@ -24,7 +24,7 @@ spring:
     password: ''
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: none
 
     properties:
       hibernate:
@@ -33,11 +33,20 @@ spring:
         default_batch_fetch_size: 1000
 
     open-in-view: false # OSIV ??
-    #      static-locations: file:///Users/hojintop/IdeaProjects/dongne/src/main/resources/static/
+
+  thymeleaf:
+    cache: false
+    prefix: file:///Users/gimgeon-u/neoclue/project/gupos-module/gupos-web-order/src/main/resources/templates/
+    #    prefix: file:///Users/hojintop/IdeaProjects/dongne-module/dongne-admin/src/main/resources/templates/
 
   web:
     resources:
-      static-locations: file:/Users/gimgeon-u/intelliJProject/upload
+      static-locations:
+        - classpath:/static/
+#        - file:/Users/gimgeon-u/neoclue/dongne/upload
+
+  mvc:
+    static-path-pattern: /**
 
 
 ---
@@ -48,16 +57,7 @@ spring:
       on-profile: "common"
 
   application:
-    name: gupos-api
-
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-    static-path-pattern: /files/**
-
-  #  mvc:
-  #    problemdetails:
-  #      enabled: true
+    name: gupos-web-order
 
   data:
     web:
@@ -71,13 +71,3 @@ spring:
 
 logging.level:
   org.hibernate.SQL: trace # ??? ??
-
-
-springdoc:
-  group-configs:
-    - group: product
-      paths-to-match: /api/v1/pos/product/**
-      display-name: 상품 도메인
-    - group: order
-      paths-to-match: /api/v1/pos/order/**
-      display-name: 주문 도메인
