@@ -68,6 +68,13 @@ public class OrderService implements OrderUseCase {
     }
 
     @Override
+    public Order cancelCompletedOrder(Long orderId) {
+        Order foundOrder = orderPort.findById(orderId);
+        foundOrder.cancelCompleted();
+        return foundOrder;
+    }
+
+    @Override
     public List<Order> getOrderList() {
         List<Order> list = orderPort.findList();
         for (Order order : list) {

@@ -36,4 +36,9 @@ public class PosOrderApiController {
     public Order cancelOrder(@PathVariable("orderId") Long orderId) {
         return orderUseCase.cancelOrder(orderId);
     }
+
+    @PutMapping("/api/v1/pos/order/cancel-complete/{orderId}")
+    public Order cancelComepleteOrder(@PathVariable("orderId") Long orderId) {
+        return orderUseCase.cancelCompletedOrder(orderId);
+    }
 }

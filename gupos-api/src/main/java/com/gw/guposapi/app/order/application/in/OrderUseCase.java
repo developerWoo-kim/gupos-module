@@ -13,5 +13,7 @@ public interface OrderUseCase {
 
     Order cancelOrder(Long orderId);
 
+    Order cancelCompletedOrder(Long orderId);
+
     List<Order> getOrderList();
 }

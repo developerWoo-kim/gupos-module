@@ -1,5 +1,6 @@
 rootProject.name = 'gupos-module'
 include 'gupos-api'
+include 'gupos-web-order'
 include 'gupos-core:domain'
 findProject(':gupos-core:domain')?.name = 'domain'
 include 'gupos-core:infra'
