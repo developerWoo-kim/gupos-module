@@ -1,303 +1,270 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-nav-layout="horizontal" data-nav-style="menu-click" data-menu-position="fixed" data-theme-mode="light">
-
+<html lang="ko">
 <head>
-
-    <!-- Meta Data -->
     <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> VERTIX - Bootstrap 5 Premium Admin & Dashboard Template </title>
-    <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
-    <meta name="Author" content="Spruko Technologies Private Limited">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 화면</title>
+    <link id="style" href="/assets/libs/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
 
-    <!-- Favicon -->
-    <link rel="icon" href="/assets/images/brand-logos/favicon.ico" type="image/x-icon">
+    <style>
+        /*:root {*/
+        /*    --color-primary: #000000;*/
+        /*    --color-text: #333;*/
+        /*    --color-muted: #888;*/
+        /*    --color-border: #e5e5e5;*/
+        /*    --color-bg: #fff;*/
 
-    <!-- Bootstrap Css -->
-    <link id="style" href="/assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        /*    --font-xs: 12px;*/
+        /*    --font-sm: 14px;*/
+        /*    --font-base: 16px;*/
+        /*    --font-lg: 22px;*/
+        /*    --font-xl: 24px;*/
 
-    <!-- Style Css -->
-    <link href="/assets/css/styles.css" rel="stylesheet">
+        /*    --spacing-xs: 4px;*/
+        /*    --spacing-sm: 8px;*/
+        /*    --spacing-md: 16px;*/
+        /*    --spacing-lg: 24px;*/
+        /*}*/
 
-    <!-- Icons Css -->
-    <link href="/assets/css/icons.css" rel="stylesheet">
+        /*body {*/
+        /*    margin: 0;*/
+        /*    font-family: 'Noto Sans KR', sans-serif;*/
+        /*    color: var(--color-text);*/
+        /*    background: var(--color-bg);*/
+        /*}*/
 
-    <!-- Node Waves Css -->
-    <link href="/assets/libs/node-waves/waves.min.css" rel="stylesheet">
-
-    <!-- SwiperJS Css -->
-    <link rel="stylesheet" href="/assets/libs/swiper/swiper-bundle.min.css">
-
-    <!-- Color Picker Css -->
-    <link rel="stylesheet" href="/assets/libs/flatpickr/flatpickr.min.css">
-    <link rel="stylesheet" href="/assets/libs/@simonwep/pickr/themes/nano.min.css">
-
-    <!-- Choices Css -->
-    <link rel="stylesheet" href="/assets/libs/choices.js/public/assets/styles/choices.min.css">
-
-    <script>
-        if (localStorage.udonlandingdarktheme) {
-            document.querySelector("html").setAttribute("data-theme-mode", "dark")
+        /* 최상단 바 */
+        .order-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--white-9);
         }
-        if (localStorage.udonlandingrtl) {
-            document.querySelector("html").setAttribute("dir", "rtl")
-            document.querySelector("#style")?.setAttribute("href", "/assets/libs/bootstrap/css/bootstrap.rtl.min.css");
+
+        /*!* 상점 정보 *!*/
+        .store-header {
+            padding: 0 1.25rem 0 1.25rem;;
+            margin-top: 0.5rem;
         }
-    </script>
+
+        .store-header__info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /*.store-header__name {*/
+        /*    font-size: var(--font-lg); !* 기존보다 크게 *!*/
+        /*    font-weight: bold;*/
+        /*    margin: 0;*/
+        /*}*/
+
+        /*.store-header__table {*/
+        /*    font-size: var(--font-sm);*/
+        /*    color: var(--color-muted);*/
+        /*}*/
+
+        /*.notice-banner {*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    background: #f7f9fa;*/
+        /*    !*padding: var(--spacing-sm);*!*/
+        /*    !*margin-top: var(--spacing-sm);*!*/
+        /*    border-radius: 50px;*/
+        /*    font-size: var(--font-sm);*/
+        /*    color: var(--color-muted);*/
+        /*    gap: var(--spacing-xs);*/
+        /*}*/
+
+        /*!* 탭 네비게이션 (탭만 sticky) *!*/
+        /*.tab-nav {*/
+        /*    position: sticky;*/
+        /*    top: 0; !* header는 스크롤되지만 탭만 고정 *!*/
+        /*    background: var(--color-bg);*/
+        /*    z-index: 5;*/
+        /*    border-bottom: 1px solid var(--color-border);*/
+        /*    scrollbar-width: none; !* Firefox 스크롤바 제거 *!*/
+        /*    overflow-x: auto;*/
+        /*}*/
+
+        /*.tab-nav::-webkit-scrollbar {*/
+        /*    display: none; !* 크롬/사파리 스크롤바 제거 *!*/
+        /*}*/
+
+        /*.tab-nav__list {*/
+        /*    display: flex;*/
+        /*    gap: var(--spacing-md);*/
+        /*    margin: 0;*/
+        /*    padding: 0 var(--spacing-md);*/
+        /*    list-style: none;*/
+        /*    white-space: nowrap;*/
+        /*}*/
+
+        /*.tab-nav__item {*/
+        /*    cursor: pointer;*/
+        /*    font-size: var(--font-base);*/
+        /*    padding-bottom: var(--spacing-sm);*/
+        /*    border-bottom: 2px solid transparent;*/
+        /*}*/
+
+        /*.tab-nav__item.active {*/
+        /*    border-bottom: 2px solid var(--color-primary);*/
+        /*    font-weight: bold;*/
+        /*}*/
 
 
+        /*!* 콘텐츠 *!*/
+        /*.content {*/
+        /*    !*padding: var(--spacing-md);*!*/
+        /*    background: rgb(244, 244, 246); !* ✅ 변경: content 영역 배경색 *!*/
+        /*    min-height: 100vh; !* 페이지 끝까지 색상 유지 *!*/
+        /*}*/
+
+        /*!* 각 상품 섹션 *!*/
+        /*.product-section {*/
+        /*    margin-bottom: var(--spacing-lg); !* ✅ 하단 마진 추가 *!*/
+        /*    background: #ffffff; !* ✅ 섹션별 배경 유지 *!*/
+        /*    padding: var(--spacing-lg); !* 내부 여백 추가 (카드 스타일) *!*/
+        /*}*/
+
+        /*.product-section__title {*/
+        /*    font-size: var(--font-lg);*/
+        /*    margin-bottom: var(--spacing-xs);*/
+        /*}*/
+
+        /*.product-section__desc {*/
+        /*    font-size: var(--font-sm);*/
+        /*    color: var(--color-muted);*/
+        /*    margin-bottom: var(--spacing-md);*/
+        /*}*/
+
+        /*.product-card {*/
+        /*    display: flex;*/
+        /*    gap: var(--spacing-md);*/
+        /*    margin-bottom: var(--spacing-md);*/
+        /*}*/
+
+        /*.product-card__image {*/
+        /*    width: 95px;*/
+        /*    height: 95px;*/
+        /*    border-radius: 8px;*/
+        /*    object-fit: cover;*/
+        /*}*/
+
+        /*.product-card__info {*/
+        /*    flex: 1;*/
+        /*}*/
+
+        /*.product-card__name {*/
+        /*    display: flex;*/
+        /*    align-items: center;*/
+        /*    gap: var(--spacing-xs);*/
+        /*    font-size: var(--font-base);*/
+        /*}*/
+
+        /*.product-card__price {*/
+        /*    font-weight: bold;*/
+        /*    margin: var(--spacing-xs) 0;*/
+        /*}*/
+
+        /*.product-card__desc {*/
+        /*    font-size: var(--font-sm);*/
+        /*    color: var(--color-muted);*/
+        /*}*/
+
+        /*!* 배지 *!*/
+        /*.badge {*/
+        /*    display: inline-block;*/
+        /*    font-size: var(--font-xs);*/
+        /*    padding: 2px 6px;*/
+        /*    border-radius: 12px;*/
+        /*    color: white;*/
+        /*}*/
+
+        .badge--green { background: #1cc88a; }
+        .badge--blue { background: #36a2eb; }
+        .badge--red { background: #e74a3b; }
+    </style>
 </head>
-
-<body class="landing-body">
-
-
-<div class="landing-page-wrapper">
-    <div class="text-center mb-3">
-        <div class="d-flex justify-content-between mt-3 mb-3 mx-3">
-            <span class="fs-16 text-muted d-block">직원호출</span>
-            <a class="fs-16 text-info d-block">주문내역</a>
+<body>
+    <div class="page">
+        <div class="order-header-bar">
+            <div>
+                🔔<span class="fs-16 text-dark op-6 fw-semibold"> 직원호출</span>
+            </div>
+            <span class="fs-16 text-dark op-7 fw-semibold">주문내역</span>
         </div>
 
-        <div class="d-flex justify-content-between mx-4">
-            <span class="fs-24 fw-semibold d-block ">지유 카페</span>
-            <span class="fs-14 op-8 d-block">테이블 : 1번 테이블</span>
-        </div>
-        <div class="d-flex justify-content-start mb-2 mx-4">
-            <span class="fs-18 op-9 d-block mb-2">멤버도 QR 찍고 <span class="text-info">함께 주문</span> 해요</span>
-        </div>
-
-        <div class="mx-4">
-            <div class="d-flex align-items-center bg-light py-2 px-3 text-start" style="border-radius: 3rem">
-                <i class="ri-megaphone-fill text-warning align-middle fs-20 me-2"></i>
-                <span class="fs-14 op-8 d-block">1인당 1메뉴 부탁드려요 :)</span>
+        <!-- 상점 정보 영역 -->
+        <div class="store-header">
+            <div class="store-header__info">
+                <h1 class="store-header__name fs-20 fw-bold">토스 카페</h1>
+                <span class="store-header__table">테이블 : 1번 테이블</span>
+            </div>
+            <div class="notice-banner">
+                <span class="notice-banner__icon">📢</span>
+                <span class="notice-banner__text">1인당 1메뉴 부탁드려요 :)</span>
             </div>
         </div>
-    </div>
-    <!-- app-header -->
-    <header class="app-header">
 
-        <!-- Start::main-header-container -->
-        <div class="main-header-container container-fluid">
-            <div class="d-flex justify-content-start mb-2 mx-4">
-                <span class="fs-18 op-9 d-block mb-2">리뷰 이벤트</span>
-            </div>
-            <!-- Start::header-content-left -->
-            <div class="header-content-left">
-                <!-- Start::header-element -->
-                <div class="header-element">
-                    <!-- Start::header-link -->
-                    <!-- End::header-link -->
-                </div>
-                <!-- End::header-element -->
+        <!-- 탭 네비게이션 (스크롤 고정) -->
+        <nav class="tab-nav">
+            <ul class="tab-nav__list">
+                <li class="tab-nav__item active">리뷰 이벤트</li>
+                <li class="tab-nav__item">샌드위치</li>
+                <li class="tab-nav__item">커피</li>
+                <li class="tab-nav__item">음료</li>
+                <li class="tab-nav__item">음료</li>
+                <li class="tab-nav__item">음료</li>
+                <li class="tab-nav__item">음료</li>
+                <li class="tab-nav__item">음료</li>
+            </ul>
+        </nav>
 
-            </div>
-            <!-- End::header-content-left -->
-
-            <!-- Start::header-content-right -->
-            <div class="header-content-right">
-
-                <!-- Start::header-element -->
-                <div class="header-element align-items-center">
-                </div>
-                <!-- End::header-element -->
-
-            </div>
-            <!-- End::header-content-right -->
-
-        </div>
-        <!-- End::main-header-container -->
-
-    </header>
-    <!-- /app-header -->
-
-    <!-- Start::app-content -->
-    <div class="main-content landing-main px-0">
-
-        <!-- Start:: Section-1 -->
-        <div class="landing-banner" id="home">
-            <section class="section">
-                <div class="container main-banner-container pb-lg-0">
-                    <div class="row">
-                        <div class="col-xxl-7 col-xl-7 col-lg-7 col-md-8">
-                            <div class="py-lg-5">
-                                <div class="mb-3">
-                                    <h6 class="fw-medium text-fixed-white op-9">BRILLIANCE IN EXECUTION</h6>
-                                </div>
-                                <p class="landing-banner-heading mb-3">Your sure stop place for best theme ends here
-                                    with <span class="fw-semibold">Vertix</span></p>
-                                <div class="fs-16 mb-5 text-fixed-white op-7">Vertix - Now you can use this admin
-                                    template to design stunning dashboards that will wow your target viewers or
-                                    users to no end.</div>
-                                <a href="index.html" class="m-1 btn btn-lg bg-white-transparent">
-                                    View Demos
-                                    <i class="ri-eye-line ms-2 align-middle"></i>
-                                </a>
-                                <a href="index.html"
-                                   class="m-1 btn btn-lg text-fixed-white border border-white border-opacity-25 btn-wave waves-effect waves-light">
-                                    Learn More
-                                    <i class="ri-arrow-right-line ms-2 align-middle"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xxl-5 col-xl-5 col-lg-5 col-md-4 my-auto">
-                            <div class="text-end landing-main-image landing-heading-img">
-                                <img src="/assets/images/media/landing/1.png" alt="" class="img-fluid">
-                            </div>
-                        </div>
+        <!-- 콘텐츠 영역 -->
+        <main class="content">
+            <section class="product-section">
+                <div class="product-card">
+                    <div class="product-card__info">
+                        <span class="badge badge--green">네이버 리뷰 이벤트</span>
+                        <h3 class="product-card__name">
+                            리뷰쓰고 마카롱 1개 받기 0원
+                        </h3>
+                        <p class="product-section__desc">
+                            이벤트에 참여해주시면 직원이 리뷰작성용 영수증을 가져다드려요.
+                        </p>
                     </div>
+                    <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
                 </div>
             </section>
-        </div>
-        <!-- End:: Section-1 -->
-        <!-- Start:: Section-2 -->
-        <section class="section" id="about">
-            <div class="container position-relative">
-                <div class="text-center">
-                    <p class="fs-12 fw-medium text-success mb-1"><span
-                            class="landing-section-heading text-primary">GLANCE</span>
-                    </p>
-                    <h3 class="fw-semibold mb-2 mt-3">Why you choose us ?</h3>
-                    <div class="row justify-content-center">
-                        <div class="col-xl-7">
-                            <p class="text-muted fs-15 mb-5 fw-normal">Our mission is to support you in achieving
-                                your goals.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4">
-                        <div class="card custom-card landing-card border shadow-none">
-                            <div class="card-body">
-                                <div class="mb-4">
-                                        <span class="avatar avatar-xl bg-primary-transparent">
-                                            <span class="avatar avatar-lg bg-primary svg-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <path
-                                                            d="M208,104a79.86,79.86,0,0,1-30.59,62.92A24.29,24.29,0,0,0,168,186v6a8,8,0,0,1-8,8H96a8,8,0,0,1-8-8v-6a24.11,24.11,0,0,0-9.3-19A79.87,79.87,0,0,1,48,104.45C47.76,61.09,82.72,25,126.07,24A80,80,0,0,1,208,104Z"
-                                                            opacity="0.2"></path>
-                                                    <path
-                                                            d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.5C39.74,56.83,78.26,17.15,125.88,16A88,88,0,0,1,216,104Zm-16,0a72,72,0,0,0-73.74-72c-39,.92-70.47,33.39-70.26,72.39a71.64,71.64,0,0,0,27.64,56.3h0A32,32,0,0,1,96,186v6h24V147.31L90.34,117.66a8,8,0,0,1,11.32-11.32L128,132.69l26.34-26.35a8,8,0,0,1,11.32,11.32L136,147.31V192h24v-6a32.12,32.12,0,0,1,12.47-25.35A71.65,71.65,0,0,0,200,104Z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                </div>
-                                <h4 class="fw-semibold">Smart Services</h4>
-                                <p class="fs-15 text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                    elitipsum dolor sit, amet consectetur</p>
-                                <a href="javascript:void(0);" class="fw-medium text-primary">Read More<i
-                                        class="ti ti-arrow-narrow-right ms-2 fs-5 align-middle"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card custom-card landing-card border shadow-none">
-                            <div class="card-body">
-                                <div class="mb-4">
-                                        <span class="avatar avatar-xl bg-primary-transparent">
-                                            <span class="avatar avatar-lg bg-primary svg-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <path
-                                                            d="M163.94,80.11h0C162.63,80,161.32,80,160,80a72,72,0,0,0-67.93,95.88h0a71.53,71.53,0,0,1-30-8.39l-27.76,8.16a8,8,0,0,1-9.93-9.93L32.5,138A72,72,0,1,1,163.94,80.11Z"
-                                                            opacity="0.2"></path>
-                                                    <path
-                                                            d="M144,140a12,12,0,1,1-12-12A12,12,0,0,1,144,140Zm44-12a12,12,0,1,0,12,12A12,12,0,0,0,188,128Zm51.34,83.47a16,16,0,0,1-19.87,19.87l-24.71-7.27A80,80,0,0,1,86.43,183.42a79,79,0,0,1-25.19-7.35l-24.71,7.27a16,16,0,0,1-19.87-19.87l7.27-24.71A80,80,0,1,1,169.58,72.59a80,80,0,0,1,62.49,114.17ZM81.3,166.3a79.94,79.94,0,0,1,70.38-93.87A64,64,0,0,0,39.55,134.19a8,8,0,0,1,.63,6L32,168l27.76-8.17a8,8,0,0,1,6,.63A63.45,63.45,0,0,0,81.3,166.3Zm135.15,15.89a64,64,0,1,0-26.26,26.26,8,8,0,0,1,6-.63L224,216l-8.17-27.76A8,8,0,0,1,216.45,182.19Z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                </div>
-                                <h4 class="fw-semibold">24/7 Customer Support</h4>
-                                <p class="fs-15 text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                    elitipsum dolor sit, amet consectetur</p>
-                                <a href="javascript:void(0);" class="fw-medium text-primary">Read More<i
-                                        class="ti ti-arrow-narrow-right ms-2 fs-5 al align-middle"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4">
-                        <div class="card custom-card landing-card border shadow-none">
-                            <div class="card-body">
-                                <div class="mb-4">
-                                        <span class="avatar avatar-xl bg-primary-transparent">
-                                            <span class="avatar avatar-lg bg-primary svg-white">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
-                                                     fill="#000000" viewBox="0 0 256 256">
-                                                    <path
-                                                            d="M104,40a24,24,0,1,1,24,24A24,24,0,0,1,104,40Zm108.49,99.51L167.17,88.13a24,24,0,0,0-18-8.13H106.83a24,24,0,0,0-18,8.13L43.51,139.51a12,12,0,0,0,17,17L96,128,73.13,214.93a12,12,0,0,0,21.75,10.14L128,168l33.12,57.07a12,12,0,0,0,21.75-10.14L160,128l35.51,28.49a12,12,0,0,0,17-17Z"
-                                                            opacity="0.2"></path>
-                                                    <path
-                                                            d="M160,40a32,32,0,1,0-32,32A32,32,0,0,0,160,40ZM128,56a16,16,0,1,1,16-16A16,16,0,0,1,128,56Zm90.34,78.05L173.17,82.83a32,32,0,0,0-24-10.83H106.83a32,32,0,0,0-24,10.83L37.66,134.05a20,20,0,0,0,28.13,28.43l16.3-13.08L65.55,212.28A20,20,0,0,0,102,228.8l26-44.87,26,44.87a20,20,0,0,0,36.41-16.52L173.91,149.4l16.3,13.08a20,20,0,0,0,28.13-28.43Zm-11.51,16.77a4,4,0,0,1-5.66,0c-.21-.2-.42-.4-.65-.58L165,121.76A8,8,0,0,0,152.26,130L175.14,217a7.72,7.72,0,0,0,.48,1.35,4,4,0,1,1-7.25,3.38,6.25,6.25,0,0,0-.33-.63L134.92,164a8,8,0,0,0-13.84,0L88,221.05a6.25,6.25,0,0,0-.33.63,4,4,0,0,1-2.26,2.07,4,4,0,0,1-5-5.45,7.72,7.72,0,0,0,.48-1.35L103.74,130A8,8,0,0,0,91,121.76L55.48,150.24c-.23.18-.44.38-.65.58a4,4,0,1,1-5.66-5.65c.12-.12.23-.24.34-.37L94.83,93.41a16,16,0,0,1,12-5.41h42.34a16,16,0,0,1,12,5.41l45.32,51.39c.11.13.22.25.34.37A4,4,0,0,1,206.83,150.82Z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </span>
-                                </div>
-                                <h4 class="fw-semibold">Experienced Staff</h4>
-                                <p class="fs-15 text-muted">Lorem ipsum dolor sit, amet consectetur adipisicing
-                                    elitipsum dolor sit, amet consectetur</p>
-                                <a href="javascript:void(0);" class="fw-medium text-primary">Read More<i
-                                        class="ti ti-arrow-narrow-right ms-2 fs-5 align-middle"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- End:: Section-2 -->
 
-        <div class="text-center landing-main-footer py-3">
-            <span class="text-muted fs-15"> Copyright © <span id="year"></span> <a href="javascript:void(0);"
-                                                                                   class="text-primary fw-medium"><u>VERTIX</u></a>.
-                Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0);"
-                                                                                  class="text-primary fw-medium"><u>
-                        Spruko</u>
-                </a> All
-                rights
-                reserved
-            </span>
-        </div>
-
+            <section class="product-section">
+                <h2 class="product-section__title">샌드위치</h2>
+                <div class="product-card">
+                    <div class="product-card__info">
+                        <span class="badge badge--blue">인기</span>
+                        <h3 class="product-card__name">
+                            루꼴라 크로와상 샌드위치
+                        </h3>
+                        <p class="product-card__price">7,500원</p>
+                        <p class="product-card__desc">크림치즈, 햄, 토마토, 루꼴라, 로메인이 들어간 건강한 샌드위치</p>
+                    </div>
+                    <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
+                </div>
+                <div class="product-card">
+                    <div class="product-card__info">
+                        <span class="badge badge--red">신규</span>
+                        <h3 class="product-card__name">
+                            햄치즈 통밀 샌드위치
+                        </h3>
+                        <p class="product-card__price">7,000원</p>
+                        <p class="product-card__desc">건강한 통밀빵에 햄, 치즈, 신선한 야채가 듬뿍 들어간 담백한 샌드위치</p>
+                    </div>
+                    <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
+                </div>
+            </section>
+        </main>
     </div>
-    <!-- End::app-content -->
-
-</div>
-
-<div class="scrollToTop">
-    <span class="arrow"><i class="ri-arrow-up-s-fill fs-20"></i></span>
-</div>
-<div id="responsive-overlay"></div>
-
-<!-- Popper JS -->
-<script src="/assets/libs/@popperjs/core/umd/popper.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Color Picker JS -->
-<script src="/assets/libs/@simonwep/pickr/pickr.es5.min.js"></script>
-
-<!-- Choices JS -->
-<script src="/assets/libs/choices.js/public/assets/scripts/choices.min.js"></script>
-
-<!-- Swiper JS -->
-<script src="/assets/libs/swiper/swiper-bundle.min.js"></script>
-
-<!-- Defaultmenu JS -->
-<script src="/assets/js/defaultmenu.min.js"></script>
-
-<!-- Internal Landing JS -->
-<script src="/assets/js/landing.js"></script>
-
-<!-- Node Waves JS-->
-<script src="/assets/libs/node-waves/waves.min.js"></script>
-
-<!-- Sticky JS -->
-<script src="/assets/js/sticky.js"></script>
-
 </body>
-
 </html>
