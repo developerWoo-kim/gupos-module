@@ -8,32 +8,6 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
 
     <style>
-        /*:root {*/
-        /*    --color-primary: #000000;*/
-        /*    --color-text: #333;*/
-        /*    --color-muted: #888;*/
-        /*    --color-border: #e5e5e5;*/
-        /*    --color-bg: #fff;*/
-
-        /*    --font-xs: 12px;*/
-        /*    --font-sm: 14px;*/
-        /*    --font-base: 16px;*/
-        /*    --font-lg: 22px;*/
-        /*    --font-xl: 24px;*/
-
-        /*    --spacing-xs: 4px;*/
-        /*    --spacing-sm: 8px;*/
-        /*    --spacing-md: 16px;*/
-        /*    --spacing-lg: 24px;*/
-        /*}*/
-
-        /*body {*/
-        /*    margin: 0;*/
-        /*    font-family: 'Noto Sans KR', sans-serif;*/
-        /*    color: var(--color-text);*/
-        /*    background: var(--color-bg);*/
-        /*}*/
-
         /* 최상단 바 */
         .order-header-bar {
             display: flex;
@@ -54,133 +28,130 @@
             justify-content: space-between;
         }
 
-        /*.store-header__name {*/
-        /*    font-size: var(--font-lg); !* 기존보다 크게 *!*/
-        /*    font-weight: bold;*/
-        /*    margin: 0;*/
-        /*}*/
-
-        /*.store-header__table {*/
-        /*    font-size: var(--font-sm);*/
-        /*    color: var(--color-muted);*/
-        /*}*/
-
-        /*.notice-banner {*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    background: #f7f9fa;*/
-        /*    !*padding: var(--spacing-sm);*!*/
-        /*    !*margin-top: var(--spacing-sm);*!*/
-        /*    border-radius: 50px;*/
-        /*    font-size: var(--font-sm);*/
-        /*    color: var(--color-muted);*/
-        /*    gap: var(--spacing-xs);*/
-        /*}*/
+        .notice-banner {
+            display: flex;
+            align-items: center;
+            background: #f7f9fa;
+            padding: 0.65rem;
+            border-radius: 50px;
+            margin-top: 0.75rem;
+        }
 
         /*!* 탭 네비게이션 (탭만 sticky) *!*/
-        /*.tab-nav {*/
-        /*    position: sticky;*/
-        /*    top: 0; !* header는 스크롤되지만 탭만 고정 *!*/
-        /*    background: var(--color-bg);*/
-        /*    z-index: 5;*/
-        /*    border-bottom: 1px solid var(--color-border);*/
-        /*    scrollbar-width: none; !* Firefox 스크롤바 제거 *!*/
-        /*    overflow-x: auto;*/
-        /*}*/
+        .tab-nav {
+            position: sticky;
+            top: 0; /* header는 스크롤되지만 탭만 고정 */
+            background: var(--custom-white);
+            padding: 0 1rem 0 1rem;
+            z-index: 5;
+            border-bottom: 1px solid var(--default-border);
+            scrollbar-width: none; /* Firefox 스크롤바 제거 */
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
 
-        /*.tab-nav::-webkit-scrollbar {*/
-        /*    display: none; !* 크롬/사파리 스크롤바 제거 *!*/
-        /*}*/
+        .tab-nav::-webkit-scrollbar {
+            display: none; /* 크롬/사파리 스크롤바 제거 */
+        }
 
-        /*.tab-nav__list {*/
-        /*    display: flex;*/
-        /*    gap: var(--spacing-md);*/
-        /*    margin: 0;*/
-        /*    padding: 0 var(--spacing-md);*/
-        /*    list-style: none;*/
-        /*    white-space: nowrap;*/
-        /*}*/
+        .tab-nav__list {
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0 0.5rem;
+            list-style: none;
+            white-space: nowrap;
+        }
 
-        /*.tab-nav__item {*/
-        /*    cursor: pointer;*/
-        /*    font-size: var(--font-base);*/
-        /*    padding-bottom: var(--spacing-sm);*/
-        /*    border-bottom: 2px solid transparent;*/
-        /*}*/
+        .tab-nav__item {
+            cursor: pointer;
+            font-size: 17px;
+            font-weight: 500;
+            color: rgb(var(--dark-rgb));
+            opacity: 0.6;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            border-bottom: 2px solid transparent;
+        }
 
-        /*.tab-nav__item.active {*/
-        /*    border-bottom: 2px solid var(--color-primary);*/
-        /*    font-weight: bold;*/
-        /*}*/
+        .tab-nav__item.active {
+            border-bottom: 2px solid var(--custom-black);
+            color: var(--custom-black) !important;
+            opacity: 1;
+            font-weight: 600;
+        }
 
 
         /*!* 콘텐츠 *!*/
-        /*.content {*/
-        /*    !*padding: var(--spacing-md);*!*/
-        /*    background: rgb(244, 244, 246); !* ✅ 변경: content 영역 배경색 *!*/
-        /*    min-height: 100vh; !* 페이지 끝까지 색상 유지 *!*/
-        /*}*/
+        .order-content {
+            /*padding: 1rem;*/
+            background: var(--default-border); /* ✅ 변경: content 영역 배경색 */
+            min-height: calc(50vh - 8rem);
+            transition: all 0.05s ease;
+        }
 
         /*!* 각 상품 섹션 *!*/
-        /*.product-section {*/
-        /*    margin-bottom: var(--spacing-lg); !* ✅ 하단 마진 추가 *!*/
-        /*    background: #ffffff; !* ✅ 섹션별 배경 유지 *!*/
-        /*    padding: var(--spacing-lg); !* 내부 여백 추가 (카드 스타일) *!*/
-        /*}*/
+        .product-section {
+            margin-bottom: 1rem; /* ✅ 하단 마진 추가 */
+            background: #ffffff; /* ✅ 섹션별 배경 유지 */
+            padding: 1rem; /* 내부 여백 추가 (카드 스타일) */
+        }
 
-        /*.product-section__title {*/
-        /*    font-size: var(--font-lg);*/
-        /*    margin-bottom: var(--spacing-xs);*/
-        /*}*/
+        .product-section__title {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
 
-        /*.product-section__desc {*/
-        /*    font-size: var(--font-sm);*/
-        /*    color: var(--color-muted);*/
-        /*    margin-bottom: var(--spacing-md);*/
-        /*}*/
+        .product-section__desc {
+            font-size: 14px;
+            color: var(--dark-rgb);
+            opacity: 0.5;
+        }
 
-        /*.product-card {*/
-        /*    display: flex;*/
-        /*    gap: var(--spacing-md);*/
-        /*    margin-bottom: var(--spacing-md);*/
-        /*}*/
+        .product-card {
+            display: flex;
+            gap: 1rem;
+        }
 
-        /*.product-card__image {*/
-        /*    width: 95px;*/
-        /*    height: 95px;*/
-        /*    border-radius: 8px;*/
-        /*    object-fit: cover;*/
-        /*}*/
+        .product-card__image {
+            width: 95px;
+            height: 95px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
 
-        /*.product-card__info {*/
-        /*    flex: 1;*/
-        /*}*/
+        .product-card__info {
+            flex: 1;
+        }
 
-        /*.product-card__name {*/
-        /*    display: flex;*/
-        /*    align-items: center;*/
-        /*    gap: var(--spacing-xs);*/
-        /*    font-size: var(--font-base);*/
-        /*}*/
+        .product-card__name {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 17px;
+        }
 
-        /*.product-card__price {*/
-        /*    font-weight: bold;*/
-        /*    margin: var(--spacing-xs) 0;*/
-        /*}*/
+        .product-card__price {
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-        /*.product-card__desc {*/
-        /*    font-size: var(--font-sm);*/
-        /*    color: var(--color-muted);*/
-        /*}*/
+        .product-card__desc {
+            font-size: 14px;
+            color: var(--dark-rgb);
+            opacity: 0.5;
+        }
 
         /*!* 배지 *!*/
-        /*.badge {*/
-        /*    display: inline-block;*/
-        /*    font-size: var(--font-xs);*/
-        /*    padding: 2px 6px;*/
-        /*    border-radius: 12px;*/
-        /*    color: white;*/
-        /*}*/
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            color: white;
+            margin-bottom: 0.25rem;
+        }
 
         .badge--green { background: #1cc88a; }
         .badge--blue { background: #36a2eb; }
@@ -188,32 +159,38 @@
     </style>
 </head>
 <body>
-    <div class="page">
-        <div class="order-header-bar">
-            <div>
-                🔔<span class="fs-16 text-dark op-6 fw-semibold"> 직원호출</span>
-            </div>
-            <span class="fs-16 text-dark op-7 fw-semibold">주문내역</span>
+<div class="page">
+    <div class="order-header-bar">
+        <div>
+            🔔<span class="fs-16 text-dark op-6 fw-semibold"> 직원호출</span>
         </div>
+        <span class="fs-16 text-dark op-7 fw-semibold">주문내역</span>
+    </div>
 
         <!-- 상점 정보 영역 -->
         <div class="store-header">
             <div class="store-header__info">
-                <h1 class="store-header__name fs-20 fw-bold">토스 카페</h1>
-                <span class="store-header__table">테이블 : 1번 테이블</span>
+                <h1 class="store-header__name fs-22 fw-bold">토스 카페</h1>
+                <span class="store-header__table text-dark op-5">테이블 : 1번 테이블</span>
             </div>
             <div class="notice-banner">
-                <span class="notice-banner__icon">📢</span>
-                <span class="notice-banner__text">1인당 1메뉴 부탁드려요 :)</span>
+                <span class="notice-banner__icon me-2">📢</span>
+                <span class="notice-banner__text fs-14 text-dark op-6">1인당 1메뉴 부탁드려요 :)</span>
             </div>
         </div>
 
         <!-- 탭 네비게이션 (스크롤 고정) -->
         <nav class="tab-nav">
             <ul class="tab-nav__list">
-                <li class="tab-nav__item active">리뷰 이벤트</li>
-                <li class="tab-nav__item">샌드위치</li>
-                <li class="tab-nav__item">커피</li>
+                <li class="tab-nav__item active">
+                    리뷰 이벤트
+                </li>
+                <li class="tab-nav__item">
+                    <a href="#sdw">샌드위치</a>
+                </li>
+                <li class="tab-nav__item">
+                    <a href="#2222">222</a>
+                </li>
                 <li class="tab-nav__item">음료</li>
                 <li class="tab-nav__item">음료</li>
                 <li class="tab-nav__item">음료</li>
@@ -223,7 +200,7 @@
         </nav>
 
         <!-- 콘텐츠 영역 -->
-        <main class="content">
+        <div class="order-content">
             <section class="product-section">
                 <div class="product-card">
                     <div class="product-card__info">
@@ -239,7 +216,34 @@
                 </div>
             </section>
 
-            <section class="product-section">
+            <section class="product-section" id="sdw">
+                <h2 class="product-section__title">샌드위치</h2>
+                <a href="/order-detail">
+                    <div class="product-card">
+                        <div class="product-card__info">
+                            <span class="badge badge--blue">인기</span>
+                            <h3 class="product-card__name">
+                                루꼴라 크로와상 샌드위치
+                            </h3>
+                            <p class="product-card__price">7,500원</p>
+                            <p class="product-card__desc">크림치즈, 햄, 토마토, 루꼴라, 로메인이 들어간 건강한 샌드위치</p>
+                        </div>
+                        <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
+                    </div>
+                </a>
+                <div class="product-card">
+                    <div class="product-card__info">
+                        <span class="badge badge--red">신규</span>
+                        <h3 class="product-card__name">
+                            햄치즈 통밀 샌드위치
+                        </h3>
+                        <p class="product-card__price">7,000원</p>
+                        <p class="product-card__desc">건강한 통밀빵에 햄, 치즈, 신선한 야채가 듬뿍 들어간 담백한 샌드위치</p>
+                    </div>
+                    <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
+                </div>
+            </section>
+            <section class="product-section" id="2222">
                 <h2 class="product-section__title">샌드위치</h2>
                 <div class="product-card">
                     <div class="product-card__info">
@@ -264,7 +268,16 @@
                     <img src="/assets/images/admin/logo_v2.png" alt="크로와상 샌드위치" class="product-card__image">
                 </div>
             </section>
-        </main>
+        </div>
     </div>
+    <script>
+        const tabs = document.querySelectorAll('.tab-nav__item');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>

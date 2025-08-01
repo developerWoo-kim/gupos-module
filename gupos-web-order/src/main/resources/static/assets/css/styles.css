@@ -6241,10 +6241,15 @@
   color: var(--primary-color);
 }
 .form-check-input {
-  width: 1.1em;
-  height: 1.1em;
-  background-color: var(--custom-white);
-  border: 1px solid var(--input-border);
+  width: 1.2em;
+  height: 1.2em;
+  background-color: rgb(var(--light-rgb)); /* 체크 안됐을 때 회색 배경 */
+  border: 1px solid rgb(var(--light-rgb));
+  border-radius: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M12.97 4.97a.75.75 0 0 1 0 1.06l-6 6a.75.75 0 0 1-1.06 0l-3-3a.75.75 0 1 1 1.06-1.06L6.5 10.44l5.47-5.47a.75.75 0 0 1 1.06 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.5em;
 }
 .form-check-input:checked {
   /* CSS CHANGE */
@@ -6454,8 +6459,8 @@ fieldset:disabled .btn {
   margin-block-start: 2px;
 }
 .form-check-lg .form-check-input {
-  width: 1.35rem;
-  height: 1.35rem;
+  width: 1.55rem;
+  height: 1.55rem;
 }
 .form-check-lg.form-switch .form-check-input {
   width: 2.5rem;
