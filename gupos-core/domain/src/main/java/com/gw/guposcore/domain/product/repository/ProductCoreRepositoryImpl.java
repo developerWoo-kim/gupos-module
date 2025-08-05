@@ -16,6 +16,17 @@ public class ProductCoreRepositoryImpl implements ProductCoreRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
+    public Product findProductWithOptions(Long productId) {
+        return queryFactory
+                .select(product)
+                .from(product)
+                .leftJoin(product.productOptionRelList, productOptionRel).fetchJoin()
+                .leftJoin(productOptionRel.productOptionGroup, productOptionGroup).fetchJoin()
+                .where(product.productId.eq(productId))
+                .fetchOne();
+    }
+
+    @Override
     public List<Product> findList() {
         return queryFactory
                 .select(product)

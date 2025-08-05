@@ -5,6 +5,8 @@ import com.gw.guposcore.domain.product.Product;
 import java.util.List;
 
 public interface ProductCoreRepository {
+    Product findProductWithOptions(Long productId);
+
     List<Product> findList();
 
     List<Product> findProductWithOptions();

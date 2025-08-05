@@ -8,5 +8,7 @@ public interface ProductCategoryCoreRepository {
 
     List<ProductCategory> findCategoryListWithProducts();
 
+    List<ProductCategory> findCategoryList();
+
     int findMaxSortOrder();
 }

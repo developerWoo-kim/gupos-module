@@ -28,6 +28,15 @@ public class ProductCategoryCoreRepositoryImpl implements ProductCategoryCoreRep
     }
 
     @Override
+    public List<ProductCategory> findCategoryList() {
+        return queryFactory
+                .select(productCategory)
+                .from(productCategory)
+                .orderBy(productCategory.sortOrder.asc())
+                .fetch();
+    }
+
+    @Override
     public int findMaxSortOrder() {
         return Optional.ofNullable(
                 queryFactory

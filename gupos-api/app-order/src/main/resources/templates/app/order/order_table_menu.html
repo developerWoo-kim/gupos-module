@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주문 상세 화면</title>
+    <link id="style" href="/assets/libs/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/styles.css">
+    <!-- Icons Css -->
+    <link href="/assets/css/icons.css" rel="stylesheet" >
+
+    <style>
+        .header-bar {
+            position: sticky;
+            top: 0;
+            background: var(--custom-white);
+            z-index: 5;
+            border-bottom: 1px solid var(--default-border);
+            scrollbar-width: none; /* Firefox 스크롤바 제거 */
+            overflow-x: auto;
+        }
+
+        /* 최상단 바 */
+        .order-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: var(--white-9);
+        }
+
+        .product-content {
+            flex: 1;
+            display: block;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        /*!* 상점 정보 *!*/
+        .product-detail {
+            padding: 0 1.25rem 1.25rem 1.25rem;;
+            margin-top: 1.5rem;
+        }
+
+        .product-detail__price {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 1.5rem;
+        }
+
+        /*!* 콘텐츠 *!*/
+        .product-option-content {
+            padding-top: 1rem;
+            background: var(--default-border); /* ✅ 변경: content 영역 배경색 */
+            /*min-height: calc(50vh - 8rem);*/
+            transition: all 0.05s ease;
+        }
+
+        /*!* 각 상품 섹션 *!*/
+        .product-option-section {
+            /*margin-bottom: 1rem; !* ✅ 하단 마진 추가 *!*/
+            background: #ffffff; /* ✅ 섹션별 배경 유지 */
+            padding: 1.25rem 1rem; /* 내부 여백 추가 (카드 스타일) */
+        }
+
+        /* 마우스 올렸을 때 */
+        /*.product-option:hover {*/
+        /*    background-color: rgba(0, 0, 0, 0.04); !* 연한 회색 배경 *!*/
+        /*}*/
+
+        /* 클릭 중(눌렸을 때) */
+        .product-option:active {
+            background-color: rgba(0, 0, 0, 0.08); /* 더 진한 회색 */
+            transform: scale(0.98); /* 살짝 눌림 효과 */
+            transition: transform 0.05s ease;
+        }
+
+        .product-option-section-title {
+            display: flex;
+            justify-content: start;
+            align-items: center; /* ✅ 수직 정렬을 상단으로 고정 */
+            gap: 2px; /* name과 select 사이 여백 */
+            margin-bottom: 0.25rem;
+        }
+
+        .product-option-section-title__name {
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 0; /* ✅ margin-bottom 제거 (flex 내에서 간격 문제 방지) */
+        }
+
+        .product-option-section-title__select {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgb(var(--info-rgb));
+            background: #f2f8ff;
+            padding: 3px 10px;
+            border-radius: 12px;
+            flex-shrink: 0; /* ✅ select는 크기 줄어들지 않고 유지 */
+        }
+
+
+        .bottom-bar {
+            position: sticky;
+            display: flex;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 85px;
+            /* 단색 대신 그라데이션을 배경으로 */
+            background: linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.2),
+                    rgba(255, 255, 255, 0.5),
+                    rgba(255, 255, 255, 0.8),
+                    rgba(255, 255, 255, 1)
+            );
+            padding: 1rem;
+        }
+
+        .order-btn {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: rgb(var(--info-rgb));
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center; /* ✅ 수직 정렬을 상단으로 고정 */
+            text-align: center;
+        }
+
+        .order-count {
+            background: var(--custom-white);
+            padding: 4px 11px;
+            font-size: 13px;
+            font-weight: 700;
+            border-radius: 10px;
+            color: rgb(var(--info-rgb));
+            margin-right: 0.5rem;
+        }
+
+        .options-section {
+            display: flex;
+            flex-direction: column; /* 세로 정렬 */
+            gap: 0.75rem; /* ✅ 각 product-option 사이 간격 */
+            margin-top: 1rem;
+        }
+
+        .product-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* ✅ 수직 정렬을 상단으로 고정 */
+            gap: 2px; /* name과 select 사이 여백 */
+            margin-bottom: 0.25rem;
+        }
+
+        .product-option__info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 수량 조절 */
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #f7f9fa;
+            /*border: 1px solid var(--default-border);*/
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .quantity-btn {
+            width: 40px;
+            height: 50px;
+            border: none;
+            background: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .quantity-value-box {
+            display: flex;
+            width: 55px;
+            height: 40px;
+            font-size: 16px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 0 1px var(--default-border);
+            background: var(--custom-white);
+        }
+
+        .back-angle {
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M15 19l-7-7 7-7' stroke='%23000' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            cursor: pointer;
+        }
+
+        #toast {
+            visibility: hidden; /* Hidden by default */
+            min-width: 250px;
+            margin-left: -125px; /* Center it horizontally */
+            font-size: 15px;
+            background-color: #8c94a0;
+            color: #fff;
+            text-align: center;
+            border-radius: 30px;
+            padding: 14px;
+            position: fixed;
+            z-index: 1;
+            left: 50%;
+            bottom: 30px;
+            opacity: 0; /* For fade-in/out animation */
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; /* For smooth transitions */
+        }
+        #toast.show {
+            visibility: visible;
+            animation: slidein 0.5s forwards; /* Use the keyframe animation */
+        }
+        @keyframes slidein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<script type="text/javascript">
+    (function () {
+        sessionStorage.setItem("test", JSON.stringify({"test" : "test"}));
+
+        console.log(JSON.parse(sessionStorage.getItem("test")));
+    })()
+</script>
+<div class="page">
+    <div class="header-bar">
+        <div class="order-header-bar">
+            <a href="/table/table1" class="back-angle"></a>
+            <span class="fs-16 text-dark op-7 fw-semibold">주문내역</span>
+        </div>
+    </div>
+
+    <div class="product-content">
+        <img src="/assets/images/admin/food.jpeg" alt="크로와상 샌드위치" class="product-image">
+        <div class="product-detail">
+            <h1 class="fs-22 fw-semibold" th:text="${product.productNm}">햄치즈 통밀 샌드위치</h1>
+            <span class="fs-17 fw-semibold text-dark op-4">건강한 통밍빵에 햄, 치즈, 신선한 야채가 듬뿍 들어간 담백한 샌드위치</span>
+
+            <div class="product-detail__price">
+                <span class="fs-22 fw-semibold text-black op-7" th:text="${#numbers.formatInteger(product.productPrice, 0, 'COMMA') + '원'}">7,000원</span>
+                <div class="quantity-control">
+                    <button class="quantity-btn">-</button>
+                    <div class="quantity-value-box">
+                        <span class="fs-14 fw-semibold">1</span>
+                    </div>
+                    <button class="quantity-btn">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 상품 옵션 영역 -->
+    <th:block th:if="${not product.optionGroupList.isEmpty()}">
+        <div class="product-option-content">
+            <th:block th:each="optionGroup : ${product.optionGroupList}">
+                <section class="product-option-section" >
+                    <div class="product-option-section-title">
+                        <h2 class="product-option-section-title__name" th:text="${optionGroup.productOptionGroupNm}">
+                            소스추가 (기본 소스에 추가해서 더 넣어드립니다)
+                        </h2>
+                        <th:block th:if="${optionGroup.requiredAt == 'Y'}">
+                            <span class="product-option-section-title__select">필수</span>
+                        </th:block>
+                        <th:block th:if="${optionGroup.requiredAt == 'N'}">
+                            <span class="product-option-section-title__select">선택</span>
+                        </th:block>
+                    </div>
+                    <span class="fs-12 text-muted op-8" th:text="${'최대 ' + optionGroup.maxSelectionCount +'개'}">최대 2개</span>
+                    <div class="options-section">
+                        <th:block th:each="option : ${optionGroup.optionList}">
+                            <label class="product-option">
+                                <div class="product-option__info">
+                                    <span class="fs-16 text-dark op-6" th:text="${option.productOptionNm}">랜치 소스 추가</span>
+                                    <span class="fs-15 text-dark op-6" th:text="${'+' + #numbers.formatInteger(option.optionPrice, 0, 'COMMA') + '원'}">+0원</span>
+                                </div>
+                                <div class="form-check form-check-lg">
+                                    <input class="form-check-input" type="checkbox" name="optionId" th:value="${option.productOptionId}" th:attr="data-price=${option.optionPrice}, data-nm=${option.productOptionNm}">
+                                </div>
+                            </label>
+                        </th:block>
+                    </div>
+                </section>
+            </th:block>
+        </div>
+    </th:block>
+
+    <!-- 하단 고정 주문 버튼 -->
+    <div class="bottom-bar">
+<!--        <span class="order-btn">7,000원 담기</span>-->
+        <a href="javascript:" class="order-btn add-cart" title="상품 등록">
+            <span class="order-count">1</span>7,000원 담기
+        </a>
+    </div>
+</div>
+<div id="toast">
+    ✅ 장바구니에 메뉴를 추가했어요
+</div>
+<script>
+    const tabs = document.querySelectorAll('.tab-nav__item');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+        });
+    });
+
+    const addBtn = document.querySelector(".add-cart");
+    addBtn.addEventListener('click', () => {
+        showToast()
+    })
+
+    function showToast() {
+        var toast = document.getElementById("toast");
+        toast.classList.add("show");
+
+        setTimeout(function() {
+            toast.classList.remove("show");
+        }, 3000); // Hide after 3 seconds
+    }
+</script>
+</body>
+</html>
