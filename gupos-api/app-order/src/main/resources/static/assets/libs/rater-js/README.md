@@ -43,7 +43,7 @@ Directly reference the js from the module
 
 ```html
 <!--Add js before end body tag-->
-<script src="node-modules/rater-js/index.js"></script>
+<script src="node-modules/rater-js/router.js"></script>
 ```
 
 The widget will be available globally as "raterJs" on the window object.

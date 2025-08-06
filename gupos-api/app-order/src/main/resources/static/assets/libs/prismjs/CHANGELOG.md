@@ -1864,7 +1864,7 @@
 * Website: Remove non-existent anchor to failures. Reword on homepage to make is less misleading. [[`8c0911a`](https://github.com/PrismJS/prism/commit/8c0911a)]
 * Website: Add link to Keep Markup plugin in FAQ [[`e8cb6d4`](https://github.com/PrismJS/prism/commit/e8cb6d4)]
 * Test suite: Memory leak in vm.runInNewContext() seems fixed. Revert [[`9a4b6fa`](https://github.com/PrismJS/prism/commit/9a4b6fa)] to drastically improve tests execution time. [[`9bceece`](https://github.com/PrismJS/prism/commit/9bceece), [`7c7602b`](https://github.com/PrismJS/prism/commit/7c7602b)]
-* Gulp: Don't minify `components/index.js` [[`689227b`](https://github.com/PrismJS/prism/commit/689227b)]
+* Gulp: Don't minify `components/router.js` [[`689227b`](https://github.com/PrismJS/prism/commit/689227b)]
 * Website: Fix theme selection on Download page, when theme is in query string or hash. [[`b4d3063`](https://github.com/PrismJS/prism/commit/b4d3063)]
 * Update JSPM config to also include unminified components. Close [#995](https://github.com/PrismJS/prism/issues/995) [[`218f160`](https://github.com/PrismJS/prism/commit/218f160)]
 * Core: Fix support for language alias containing dash `-` [[`659ea31`](https://github.com/PrismJS/prism/commit/659ea31)]

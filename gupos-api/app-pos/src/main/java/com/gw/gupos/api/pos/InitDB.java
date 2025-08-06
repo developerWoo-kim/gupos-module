@@ -38,17 +38,18 @@ public class InitDB {
         public void createProduct() {
             int price = 500;
             List<ProductCategory> all = productCategoryRepository.findAll();
-            for(int i = 0; i < 30; i++) {
+            for(int i = 0; i < 45; i++) {
                 Product createdProduct = Product.create("상품_" + i, "상품설명", "상품상세설명", price, "N", null);
 
                 if(i < 15) {
-                    createdProduct.withCategory(all.get(0));
-                } else {
                     ProductOptionGroup optionGroup = productOptionGroupRepository.findById(1L).orElse(null);
                     ProductOptionRel productOptionRel = ProductOptionRel.create(createdProduct, optionGroup);
                     createdProduct.addProductOption(productOptionRel);
-
+                    createdProduct.withCategory(all.get(0));
+                } else if(i < 30) {
                     createdProduct.withCategory(all.get(1));
+                } else {
+                    createdProduct.withCategory(all.get(2));
                 }
 
                 productUseCase.createProduct(createdProduct);
