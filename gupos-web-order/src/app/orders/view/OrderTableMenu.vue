@@ -115,20 +115,20 @@ export default {
         "/assets/food.jpeg"
     );
 
-    const findOptionById = (optionId) => {
-      if (!product.value?.optionGroupList) return null;
-      for (const group of product.value.optionGroupList) {
-        const option = group.optionList.find((opt) => opt.productOptionId === optionId);
-        if (option) return option;
-      }
-      return null;
-    };
+    // const findOptionById = (optionId) => {
+    //   if (!product.value?.optionGroupList) return null;
+    //   for (const group of product.value.optionGroupList) {
+    //     const option = group.optionList.find((opt) => opt.productOptionId === optionId);
+    //     if (option) return option;
+    //   }
+    //   return null;
+    // };
 
     const totalPrice = computed(() => {
       if (!product.value) return 0;
-      const optionsPrice = selectedOptions.value.reduce((sum, optionId) => {
-        const option = findOptionById(optionId);
-        return sum + (option ? option.optionPrice : 0);
+      const optionsPrice = selectedOptions.value.reduce((sum, option) => {
+        return sum + option.optionPrice;
+        // return sum + (option ? option.optionPrice : 0);
       }, 0);
       return (product.value.productPrice + optionsPrice) * quantity.value;
     });
@@ -182,7 +182,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
   .header-bar {
     position: sticky;
     top: 0;
@@ -345,7 +345,7 @@ export default {
   .quantity-control {
     display: flex;
     align-items: center;
-    background: #f7f9fa;
+    background: #f3f4f6;
     /*border: 1px solid var(--default-border);*/
     border-radius: 10px;
     overflow: hidden;
@@ -368,7 +368,7 @@ export default {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    box-shadow: 0 0 1px var(--default-border);
+    box-shadow: 2px 2px 2px var(--default-border);
     background: var(--custom-white);
   }
 

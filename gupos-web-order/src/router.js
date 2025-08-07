@@ -17,12 +17,17 @@ const router = createRouter({
             path: "/table/:tableId",
             name: "order_table",
             component: () => import("./app/orders/view/OrderTable.vue"),
-            meta: { keepAlive: true }
+            // meta: { keepAlive: true }
         },
         {
             path: "/table/:tableId/menu/:menuId",
             name: "order_table_menu",
             component: () => import("./app/orders/view/OrderTableMenu.vue"),
+        },
+        {
+            path: "/cart",
+            name: "order_cart",
+            component: () => import("./app/orders/view/OrderCart.vue"),
         },
     ],
     scrollBehavior(to, from, savedPosition) {

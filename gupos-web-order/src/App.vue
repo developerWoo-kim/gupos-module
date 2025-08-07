@@ -1,9 +1,6 @@
-
 <template>
-
     <router-view></router-view>
     <GlobalToast />
-
 </template>
 <script setup>
 import GlobalToast from "@/components/toast/GlobalToast.vue";

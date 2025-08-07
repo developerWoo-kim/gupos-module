@@ -54,18 +54,19 @@
       </section>
     </div>
 
-    <!-- 하단 장바구니 버튼 -->
-    <div class="bottom-bar">
-      <a href="javascript:" class="order-btn add-cart">
-        <span class="order-count">2</span>15,000원 장바구니 보기
+    <!-- 하단 장바구니 버튼 (productList가 비어있지 않을 때만 표시) -->
+    <div class="bottom-bar" v-if="cart.productList.length">
+      <a @click="moveToCart()" class="order-btn add-cart">
+        <span class="order-count">{{ totalQuantity }}</span>{{ formatPrice(totalPrice) }} 장바구니 보기
       </a>
     </div>
   </div>
 </template>
 <script>
 
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref} from "vue";
 import { useProductCategoriesStore } from "@/app/orders/store/product_categories_store";
+import { useCartStore } from "@/app/orders/store/cart_store";
 import {storeToRefs} from "pinia";
 import router from "@/router";
 
@@ -75,6 +76,7 @@ export default {
   name: "OrderTable",
   setup() {
     const store = useProductCategoriesStore();
+    const cart = useCartStore();
     const { categoryList, activeCategory, loading, error } = storeToRefs(store);
 
     const storeName = ref("토스 카페");
@@ -111,6 +113,10 @@ export default {
       router.push(`/table/${tableName.value}/menu/${menuId}`);
     };
 
+    const moveToCart = () => {
+      router.push(`/cart`);
+    };
+
     onMounted(async () => {
       if (!categoryList.value.length) {
         await store.fetchCategories();
@@ -121,6 +127,22 @@ export default {
     onBeforeUnmount(() => {
       window.removeEventListener("scroll", handleScroll);
     });
+
+    // 장바구니 수량 합계
+    const totalQuantity = computed(() =>
+        cart.productList.reduce((sum, item) => sum + (item.quantity || 1), 0)
+    );
+
+    // 장바구니 총 가격 계산
+    const totalPrice = computed(() =>
+        cart.productList.reduce((sum, item) => {
+          // 옵션 가격 합산
+          const optionsPrice = item.options
+              ? item.options.reduce((optSum, opt) => optSum + (opt.optionPrice || 0), 0)
+              : 0;
+          return sum + (item.product.productPrice + optionsPrice) * item.quantity;
+        }, 0)
+    );
 
     return {
       storeName,
@@ -133,7 +155,11 @@ export default {
       sections,
       formatPrice,
       scrollToCategory,
-      moveToMenu
+      moveToMenu,
+      moveToCart,
+      cart,
+      totalQuantity,  // 수량 합계
+      totalPrice      // 총 가격
     };
   }
 };
@@ -305,12 +331,6 @@ export default {
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 1rem;
-}
-
-.product-section__desc {
-  font-size: 14px;
-  color: var(--dark-rgb);
-  opacity: 0.5;
 }
 
 .product-card {
